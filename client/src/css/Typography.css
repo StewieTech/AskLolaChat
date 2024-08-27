@@ -1,0 +1,49 @@
+h1 {
+    align-items: center;
+    text-align: center;
+    line-height: 1;
+    margin-top: 0;
+  
+    
+    /* Ask Lola Header */
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 800px;
+    background: linear-gradient(to right, #892be276, rgba(64, 0, 128, 0.2)); /* Nearly transparent purple gradient */
+    border-bottom-left-radius: 50%; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 50%; /* Rounded bottom-right corner */
+  
+   
+    /* background: rgba(64, 0, 128, 0.7); Super dark purple with 70% opacity */
+    color: white; /* Text color */
+    padding: 10px 0px ; /* Add some padding for spacing */
+    border-radius: 20px; /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Add a subtle shadow */
+    /* opacity: 60%; */
+    
+  }
+  
+  h2 {
+    align-items: center;
+    text-align: center;
+    font-size: calc(20px + 2vmin);
+    width: 100%;
+    max-width: 800px;
+    color: #ffffffa6; /* Set the text color to white */
+    background-color: #1a1a1a; /* Dark black */
+    box-shadow: 0 4px 32px rgba(54, 13, 65, 0.675);
+    border-radius: 25px;
+    padding: 10px 0px; 
+    /* Add some padding inside the textarea */
+  }
+  
+
+  /* Styling for the footer text "Wingman Personal :D" */
+  .code {
+    font-size: calc(10px + 2vmin);
+    color: #fff; /* Set the text color to white */
+    text-align: center;
+    align-items: center;
+    
+  }

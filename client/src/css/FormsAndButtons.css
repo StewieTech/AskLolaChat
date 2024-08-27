@@ -1,0 +1,110 @@
+
+button[type="submit"] {
+    padding: 10px 0px; 
+    width: 100%;
+    max-width: 800px;
+    margin-top: 10px; /* Add some space between textarea and button */
+    background-color: #892be276; /* Purple */
+    color: white; /* Text color */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Poppins', sans-serif; /* Use the Poppins font */
+    font-size: calc(10px + 2vmin);
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(143, 137, 137, 0.78);
+    border: none;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #4b0082; /* Darker purple on hover */
+    color: white; /* Text color */
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+    color: white; /* Text color */
+  
+    max-width: 800px;
+  };
+  
+  .upload-button {
+  
+    height: 10%;
+    width: 10%;
+    display: 'inline-block';
+    /* border-radius: 50%; */
+  
+    margin-right: 10px;  
+    display: flex;
+    align-items: left;
+    justify-content: center; 
+  }
+  
+  .auth-button {
+    display: inline-block;
+    background-color: #4285f4;
+    color: white;
+    font-size: 14px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .auth-button:hover {
+    background-color: #357ae8;
+  }
+
+
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.form-button {
+  background-color: #6a1b9a; /* Purple color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.form-button:hover {
+  background-color: #4a0072;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-button img {
+  margin-right: 10px;
+}
+
+.form-button-icon {
+  background: white;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-button-icon img {
+  width: 20px;
+  height: 20px;
+}

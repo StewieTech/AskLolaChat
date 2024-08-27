@@ -1,0 +1,116 @@
+
+
+
+
+
+
+
+.div {
+  align-items: center;
+  text-align: center;
+}
+
+
+
+
+/* Ask your wingwomen anything */
+textarea {
+  width: 85%;
+  height: 75%;
+  max-width: 800px;
+  height: 100px; /* Increase the height to make it more visible */
+  border-radius: 25px;
+  background-color: #1a1a1a; /* Dark black */
+  color: #fff; /* Set the text color to white */
+  border: 2px solid #8a2be2; /* Purple */
+  resize: none; /* Prevent textarea resizing */
+  padding: 10px; /* Add some padding inside the textarea */
+  font-size: calc(10px + 2vmin);
+  box-shadow: 0 4px 6px rgba(143, 137, 137, 0.78);
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */ 
+  /* transition: width 0.8s ease-in-out;  */
+
+}  
+
+
+
+
+.textarea-container {
+
+  /* Define the initial height of the textarea */
+  /* height: 100% ; */
+  /* width: 90%;  */
+  align-items: right;
+  height: 75%;
+
+  /* display: flex; */
+  display: block;
+  align-items: center;
+
+  justify-content: flex-end; 
+  /* Right-align the elements */
+
+  /* Other styles for the container */
+  transition: width 0.5s ease-in;
+  /* overflow: hidden; */
+
+}
+/* 
+.textarea-container.expanded {
+
+
+  height: 200% ;
+  width: 90%;
+  display: flex;  
+  justify-content: flex-end; 
+}
+ */
+
+
+.textarea-container.expanded .textarea {
+  width: 95%;
+
+}
+
+/* .expanded {
+  width: 10%;
+} */
+
+::placeholder {
+  font-size: calc(10px + 2vmin);
+}
+
+
+.hide {
+  display: none; 
+}
+
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-items: flex-start; /* Align items to the top */
+  
+}
+
+
+
+.text-center {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+
+
+.page-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%
+}
+

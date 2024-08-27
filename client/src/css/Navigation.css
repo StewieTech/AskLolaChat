@@ -1,0 +1,12 @@
+.App-link {
+    color: #8a2be2; /* Purple */
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Styling for the link on hover */
+.App-link:hover {
+    text-decoration: underline;
+  }
+  
