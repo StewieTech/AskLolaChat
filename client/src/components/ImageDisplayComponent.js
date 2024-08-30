@@ -17,7 +17,7 @@ const ImageDisplayComponent = () => {
         // const imagePaths = headerMainImages.map(image => `${imageAddress}/${image}`);
         // type: file.endsWith('.mp4') ? 'video' : 'image',
         setImages(imagePaths);
-        console.log(imagePaths);
+        console.log("imagePaths: ", imagePaths);
       })
       .catch(error => console.error('Error fetching images:', error));
   }, []);
