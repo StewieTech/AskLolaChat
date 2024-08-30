@@ -78,7 +78,7 @@ app.get('/', (req, res) => {
 });
 
 // Static files (if applicable)
-app.use(express.static(path.join(__dirname, 'client', 'public')));
+app.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
 
 // Start the server
 app.listen(port, () => {

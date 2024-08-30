@@ -31,7 +31,6 @@ import DashboardNav from './components/Dashboard';
 
 
 
-
 // Constants
 const MIN_TIMEOUT = 2500;
 const MAX_TIMEOUT = 5000;
