@@ -19,6 +19,8 @@ import QuestionCount from './components/features/messages/QuestionCount';
 import TextAreaComponent from './components/features/messages/TextAreaComponent';
 import NonsenseFooter from './components/common/NonsenseFooter'; 
 import ImageDisplayComponent from './components/features/image/ImageDisplayComponent/ImageDisplayComponent';
+import DashboardNav from './components/common/Dashboard';
+import AuthScreen from './pages/AuthScreen/AuthScreen';
 
 
 // Assets
@@ -27,7 +29,6 @@ import './css/Base.css';
 import './css/Typography.css';
 import './css/FormsAndButtons.css';
 import './css/Animations.css';
-import DashboardNav from './components/common/Dashboard';
 
 
 
@@ -291,9 +292,10 @@ return (
       <Routes>
         <Route path="/" element={<RegistrationForm />} />
         <Route path="/dashboard" element={<DashboardNav />} />
-        <Route path="/login" element={<RegistrationForm />} />
+        <Route path="/login" exact element={<RegistrationForm />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/register-success" element={<RegistrationSuccess />} />
+        <Route path="/auth" element={<AuthScreen />} />
       </Routes>
   </Container>
 </AuthProvider>
