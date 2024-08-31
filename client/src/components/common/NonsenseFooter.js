@@ -1,6 +1,7 @@
 import React from 'react';
 import {Row, Col} from 'react-bootstrap';
-import logo from '../logo.svg';
+// import logo from '../logo.svg';
+// import logo from '../../../public/logo512.png';
 
 
 const NonsenseFooter = () => {

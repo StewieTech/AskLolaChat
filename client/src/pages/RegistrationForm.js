@@ -2,8 +2,9 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import  GoogleOAuth  from '/GoogleOAuth';
-import GoogleOAuth from './GoogleOAuth';
-import AuthContext from './AuthContext';
+// import GoogleOAuth from './GoogleOAuth';
+import GoogleOAuth from '../components/authentication/GoogleOAuth';
+import AuthContext from '../components/authentication/AuthContext';
 
 
 const RegistrationForm = () => {

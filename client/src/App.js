@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Form, Button, Modal, Badge } from 'react-bootstrap';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { AuthProvider } from './components/AuthContext';
+import { AuthProvider } from './components/authentication/AuthContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // I don't believe I need below
@@ -10,15 +10,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 // Components
-import GoogleOAuth from './components/GoogleOAuth';
-import RegistrationSuccess from './components/RegistrationSuccess';
-import LoginSuccess from './components/LoginSuccess';
-import RegistrationForm from './components/RegistrationForm';
+import GoogleOAuth from './components/authentication/GoogleOAuth';
+import RegistrationSuccess from './components/common/RegistrationSuccess';
+import LoginSuccess from './components/common/LoginSuccess';
+import RegistrationForm from './pages/RegistrationForm';
 // import Header from './components/Header';
-import QuestionCount from './components/QuestionCount';
-import TextAreaComponent from './components/TextAreaComponent';
-import NonsenseFooter from './components/NonsenseFooter'; 
-import ImageDisplayComponent from './components/ImageDisplayComponent';
+import QuestionCount from './components/features/messages/QuestionCount';
+import TextAreaComponent from './components/features/messages/TextAreaComponent';
+import NonsenseFooter from './components/common/NonsenseFooter'; 
+import ImageDisplayComponent from './components/features/image/ImageDisplayComponent/ImageDisplayComponent';
 
 
 // Assets
@@ -27,7 +27,7 @@ import './css/Base.css';
 import './css/Typography.css';
 import './css/FormsAndButtons.css';
 import './css/Animations.css';
-import DashboardNav from './components/Dashboard';
+import DashboardNav from './components/common/Dashboard';
 
 
 
