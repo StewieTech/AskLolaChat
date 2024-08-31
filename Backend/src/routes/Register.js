@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const db = require('../db/serverPG');
+// const db = require('../db/serverPG');
 const bcrypt = require('bcrypt') ;
 const saltRounds = 10;
 const session = require('express-session')

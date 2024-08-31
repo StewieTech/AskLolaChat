@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bootstrap-social-gh-pages">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/client/src/delete/bootstrap-social-gh-pages.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

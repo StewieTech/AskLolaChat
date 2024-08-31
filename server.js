@@ -3,8 +3,8 @@ const OpenAI = require('openai');
 const {Configuration, OpenAIApi} = OpenAI;
 const axios = require('axios');
 const secrets = require('./secrets');
-const registerRoute = require('./routes/register');
-
+// const registerRoute = require('./Backend/src/routes/register');
+const registerRoute = require('./Backend/src/routes/Register');
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 
