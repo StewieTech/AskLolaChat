@@ -1,6 +1,12 @@
 // src/services/messageService.js
-
+require('dotenv').config();
+const OpenAI = require('openai');
+const {Configuration, OpenAIApi} = OpenAI;
+// const axios = require('axios');
+const secrets = require('../../../secrets')
 const messageRepository = require('../repositories/messageRepository'); // Importing the message repository
+
+const contentAnswer = secrets.contentAnswer;
 
 /**
  * Sends a message to Lola.
@@ -14,6 +20,10 @@ const sendMessageToLola = async (messageData) => {
     return await messageRepository.createMessage(messageData);
 };
 
+// const saveLolaMessage = async (messageData) =>{
+//     return await messageRepository.createMessage(messageData);
+// }
+
 /**
  * Sends a message from Lola.
  * This function stores a message sent by Lola to the user.
@@ -22,7 +32,9 @@ const sendMessageToLola = async (messageData) => {
  * @returns {Object} - The created message object.
  * @throws {Error} - Throws an error if there is an issue during message creation.
  */
-const sendMessageFromLola = async (messageData) => {
+const receiveTextFromLola = async (messageData) => {
+    // const lolaTextResponse = await createLolaTextResponse(messageData.content);
+    // const newMessageData = { ...messageData, content: lolaTextResponse};
     return await messageRepository.createMessage(messageData);
 };
 
@@ -62,10 +74,41 @@ const deleteMessage = async (messageId) => {
     return await messageRepository.deleteMessageById(messageId);
 };
 
+const createLolaTextResponse = async (inputText) => {
+    const configuration = new Configuration({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
+    console.log("OpenAI API Key:", process.env.OPENAI_API_KEY);
+
+
+    const openai = new OpenAIApi(configuration);
+
+    const response = await openai.createChatCompletion({
+        "model": "gpt-3.5-turbo",
+        // "model": "gpt-4",
+        messages: [
+            {role: "system", content: contentAnswer},
+            {role: "user", content: inputText},
+        ],
+        "max_tokens": 80,
+        "temperature": 0
+    });
+    
+    // console.log(response.data)
+    
+    var answer = response["data"]["choices"][0]["message"]["content"]
+    console.log(answer);
+    return answer;
+
+
+    };
+
+
 module.exports = {
     sendMessageToLola,
-    sendMessageFromLola,
+    receiveTextFromLola,
     getMessagesByLolaSession,
     getMessagesByUser,
     deleteMessage,
+    createLolaTextResponse,
 };

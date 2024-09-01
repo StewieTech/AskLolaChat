@@ -51,8 +51,10 @@ const LolaChat = ({ backendAddress }) => {
 			const formData = new FormData();
 			formData.append('image', imageFile);
 			formData.append('message', message);
+			const url = `${backendAddress}/api/upload`;
+			console.log("Sending POST request to: ", url);
 
-			fetch(`${backendAddress}/api/upload`, {
+			fetch(url, {
 				method: 'POST',
 				body: formData,
 			})

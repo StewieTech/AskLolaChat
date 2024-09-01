@@ -88,8 +88,9 @@ function App() {
 	 */
 
 	//
-	// const backendAddress = process.env.REACT_APP_API_URL;
-	const backendAddress = `http://localhost:3001` ; // test
+	const backendAddress = process.env.REACT_APP_API_URL;
+	// const backendAddress = `http://localhost:3001` ; // test
+  console.log("backend Address: ", backendAddress)
 
 	// const handleSubmit = (e) => {
 	// 	e.preventDefault();

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const OpenAI = require('openai');
-const {Configuration, OpenAIApi} = OpenAI;
+const {Configuration, OpenAIApi} = OpenAIOpenAIApi;
 const axios = require('axios');
 const secrets = require('./secrets');
 // const registerRoute = require('./Backend/src/routes/register');

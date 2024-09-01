@@ -13,7 +13,26 @@ const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external 
  * @param {Object} res - The response object used to send back the HTTP response.
  * @returns {void}
  */
-const sendMessageToLola = async (req, res) => {
+
+const receiveTextFromLola = async (req, res) => {
+    try {
+        const { message } = req.body;
+        const lolaTextResponse = await messageService.createLolaTextResponse(message);
+
+        const lolaMessageData = {
+            content: "Test1" + lolaTextResponse,
+            messageType: 'fromLola',
+        };
+        await messageService.receiveTextFromLola(lolaMessageData);
+
+        res.json({ message: "Test2" + lolaTextResponse});
+    } catch (error) {
+        console.error('Error processing text message in controller:', error);
+        res.status(500).json({ error: 'Failed to process text message' });
+    }
+}
+
+const sendTextToLola = async (req, res) => {
     try {
         const message = await messageService.sendMessageToLola(req.body);
 
@@ -123,4 +142,5 @@ module.exports = {
     getMessagesByLolaSession,
     getMessagesByUser,
     deleteMessage,
+    receiveTextFromLola,
 };
