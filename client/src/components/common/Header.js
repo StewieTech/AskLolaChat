@@ -1,8 +1,8 @@
 import React from 'react';
 import {Navbar, Nav, Container} from 'react-bootstrap';
 
-import { Link } from 'react-router-dom';
-import  Login  from './Login';
+// import  Login  from './Login';
+// import  Login  from '../authentication/';
 
 const Header = () => {
     return (
@@ -19,7 +19,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link as={Login} to="/Login">Login</Nav.Link>
+            {/* <Nav.Link as={Login} to="/Login">Login</Nav.Link> */}
             <Nav.Link href="#about">About</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
           </Nav>
