@@ -9,12 +9,13 @@ const RegisterScreen = () => {
   const formikRef = useRef(null);
 
   const initialValues = {
-    email: '',
+    name: '',
+    emailId: '',
     password: '',
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
+    emailId: Yup.string()
       .email('Invalid email format')
       .required('Email is required'),
     password: Yup.string()
@@ -58,7 +59,7 @@ const RegisterScreen = () => {
           <Form>
           <div className="form-group">
               <Field 
-                type="name" 
+                type="text" 
                 name="name" 
                 placeholder="Name" 
                 className="form-control"
@@ -68,11 +69,11 @@ const RegisterScreen = () => {
             <div className="form-group">
               <Field 
                 type="email" 
-                name="email" 
+                name="emailId" 
                 placeholder="Email" 
                 className="form-control"
               />
-              <ErrorMessage name="email" component="div" className="error" />
+              <ErrorMessage name="emailId" component="div" className="error" />
             </div>
             <div className="form-group">
               <Field 

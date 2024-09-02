@@ -8,6 +8,12 @@
 - They eventually need to have a unique session that is also tied to that ID ? 
 - A User will need to pay using stripe
 
+#### Prototype
+- Forgot Password, Password Reset, Email Verification
+
+#### MVP 2.0
+- Oauth Provider automatically filled in from their manual form and connected to their gmail so they can sign in with it in the future, or at least connect there accounts
+
 
 
 ### Components
