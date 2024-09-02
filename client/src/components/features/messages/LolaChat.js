@@ -148,19 +148,17 @@ const LolaChat = ({ backendAddress }) => {
 				</Col>
 			</Row>
 
-
-			<QuestionCount
-				questionCount={questionCount}
-				maxQuestionLimit={MAX_QUESTION_LIMIT_FREE}
-				onUpgradeClick={() => setShowProPopup(false)}
-			/>
-
 			<Row className="justify-content-center mt-3">
 				<Col xs={12} sm={8} md={6} lg={4}>
 					<ImageDisplayComponent />
 				</Col>
 			</Row>
 
+			<QuestionCount
+				questionCount={questionCount}
+				maxQuestionLimit={MAX_QUESTION_LIMIT_FREE}
+				onUpgradeClick={() => setShowProPopup(false)}
+			/>
 		</>
 	);
 };

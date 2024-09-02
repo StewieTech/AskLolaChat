@@ -3,19 +3,17 @@ import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Badge from '../../components/common/Badge/Badge'; // Import the Badge component
-import './RegisterScreen.css';
+import './LoginScreen.css';
 
-const RegisterScreen = () => {
+const LoginScreen = () => {
   const formikRef = useRef(null);
 
   const initialValues = {
     emailId: '',
     password: '',
-    name: '', // Assuming we also want to collect the user's name
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Name is required'),
     emailId: Yup.string()
       .email('Invalid email format')
       .required('Email is required'),
@@ -26,24 +24,24 @@ const RegisterScreen = () => {
 
   const onSubmit = async (values, { setSubmitting, setStatus, resetForm }) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/users/register', values);
+      const response = await axios.post('http://localhost:3001/api/users/login', values);
 
       if (response.data.success) {
-        setStatus({ success: 'Registration successful!' });
+        setStatus({ success: 'Login successful!' });
         // resetForm(); // Reset form on success
       } else {
-        setStatus({ error: 'Registration failed' });
+        setStatus({ error: 'Login failed' });
       }
     } catch (err) {
-      setStatus({ error: 'Registration failed. Please try again.' });
+      setStatus({ error: 'Login failed. Please try again.' });
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="register-screen">
-      <h2>Create an account</h2>
+    <div className="login-screen">
+      <h2>Log in</h2>
       <Formik
         innerRef={formikRef}
         initialValues={initialValues}
@@ -52,15 +50,6 @@ const RegisterScreen = () => {
       >
         {({ isSubmitting, status }) => (
           <Form>
-            <div className="form-group">
-              <Field 
-                type="text" 
-                name="name" 
-                placeholder="Name" 
-                className="form-control"
-              />
-              <ErrorMessage name="name" component="div" className="error" />
-            </div>
             <div className="form-group">
               <Field 
                 type="email" 
@@ -79,8 +68,8 @@ const RegisterScreen = () => {
               />
               <ErrorMessage name="password" component="div" className="error" />
             </div>
-            <p>Password must contain at least 8 characters.</p>
-            
+            <p className="forgot-password">Forgot your password?</p>
+
             {/* Display Badge for Success or Error */}
             {status && status.success && (
               <Badge type="success" message={status.success} />
@@ -90,15 +79,14 @@ const RegisterScreen = () => {
             )}
 
             <button type="submit" disabled={isSubmitting} className="btn btn-primary">
-              {isSubmitting ? 'Registering...' : 'Continue'}
+              {isSubmitting ? 'Logging in...' : 'Continue'}
             </button>
           </Form>
         )}
       </Formik>
-      <p>Already have an account? <a href="/login">Log in</a></p>
-      <p>By signing up, you agree to our <a href="/terms">Terms of service</a> and <a href="/privacy">Privacy policy</a></p>
+      <p>New to our platform? <a href="/register">Create an account</a></p>
     </div>
   );
 };
 
-export default RegisterScreen;
+export default LoginScreen;
