@@ -1,11 +1,8 @@
 // src/components/Chat/Chat.js
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-// import TextAreaComponent from '../features/messages/TextAreaComponent';
 import TextAreaComponent from './TextAreaComponent';
-// import ImageDisplayComponent from '../features/image/ImageDisplayComponent/ImageDisplayComponent';
 import ImageDisplayComponent from '../image/ImageDisplayComponent/ImageDisplayComponent';
-// import QuestionCount from '../features/messages/QuestionCount';
 import QuestionCount from './QuestionCount';
 
 const MIN_TIMEOUT = 2500;
@@ -21,6 +18,8 @@ const LolaChat = ({ backendAddress }) => {
 	const [imagePreviewUrl, setImagePreviewUrl] = useState(' ');
 	const [questionCount, setQuestionCount] = useState(0);
 	const [showProPopup, setShowProPopup] = useState(false);
+	// const [isTextareaBlur, setIsTextareaBlur] = useState(false);
+	const [isTextareaFocused, setIsTextareaFocused] = useState(false);
 
 	useEffect(() => {
 		if (questionCount >= MAX_QUESTION_LIMIT_FREE) {
@@ -29,6 +28,15 @@ const LolaChat = ({ backendAddress }) => {
 			setShowProPopup(false);
 		}
 	}, [questionCount]);
+
+	const handleTextareaFocus = () => {
+		setIsTextareaFocused(true);
+	};
+
+	const handleTextareaBlur = () => {
+		setIsTextareaFocused(false);
+	};
+
 
 	const handleImageUpload = (e) => {
 		const file = e.target.files[0];
@@ -78,6 +86,7 @@ const LolaChat = ({ backendAddress }) => {
 				});
 		} else {
 			const randomTimeout = Math.floor(Math.random() * (MAX_TIMEOUT - MIN_TIMEOUT + 1)) + MIN_TIMEOUT;
+			
 			setTimeout(() => {
 				fetch(backendAddress, {
 					method: 'POST',
@@ -111,7 +120,10 @@ const LolaChat = ({ backendAddress }) => {
 					<TextAreaComponent
 						message={message}
 						setMessage={setMessage}
+						isTextareaFocused={isTextareaFocused}
+						handleTextareaFocus={handleTextareaFocus}
 						handleImageUpload={handleImageUpload}
+						handleTextareaBlur={handleTextareaBlur}
 						handleSubmit={handleSubmit}
 						imageAttached={imageAttached}
 						imagePreviewUrl={imagePreviewUrl}

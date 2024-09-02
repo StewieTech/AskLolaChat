@@ -1,7 +1,6 @@
 import { FiCamera, FiArrowRight } from 'react-icons/fi';
 import {Form, Button, Image } from 'react-bootstrap';
 import React, { useState } from 'react';
-import axios from 'axios';
 
 
 
@@ -40,8 +39,6 @@ const TextAreaComponent = ({message, setMessage, isTextareaFocused, handleTextar
           {imageAttached && (
             <div className="image-preview">
               <Image src={imagePreviewUrl} alt="Image Preview"  />
-              
-
             </div>
           )}
         </Form.Group>

@@ -11,12 +11,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 // Components
 import GoogleOAuth from './components/authentication/GoogleOAuth';
 import RegistrationSuccess from './components/common/RegistrationSuccess';
-// import LoginSuccess from './components/common/LoginSuccess';
 import RegistrationForm from './pages/RegistrationForm';
 // import Header from './components/Header';
-import TextAreaComponent from './components/features/messages/TextAreaComponent';
 import NonsenseFooter from './components/common/NonsenseFooter';
-import ImageDisplayComponent from './components/features/image/ImageDisplayComponent/ImageDisplayComponent';
 import DashboardNav from './components/common/Dashboard';
 import AuthScreen from './pages/AuthScreen/AuthScreen';
 import LolaChat from './components/features/messages/LolaChat';
@@ -42,7 +39,6 @@ function App() {
 	const [response, setResponse] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const randomTimeout = Math.floor(Math.random() * MAX_TIMEOUT - MIN_TIMEOUT + 1) + MIN_TIMEOUT;
-	const [isTextareaFocused, setIsTextareaFocused] = useState(false);
 	const [imageFile, setImageFile] = useState(null);
 	const [imageAttached, setImageAttached] = useState(false);
 	const [imagePreviewUrl, setImagePreviewUrl] = useState(' ');
@@ -51,61 +47,19 @@ function App() {
 
 	const [showProPopup, setShowProPopup] = useState(false);
 
-	// const [isTextareaBlur, setIsTextareaBlur] = useState(false);
 
-	const handleTextareaFocus = () => {
-		setIsTextareaFocused(true);
-	};
 
-	const handleTextareaBlur = () => {
-		setIsTextareaFocused(false);
-	};
 
-	// I want to change this to ChatGPT 4
-
-	const handleImageUpload = (e) => {
-		const file = e.target.files[0];
-		if (file) {
-			setImageFile(file);
-			setImageAttached(true);
-			const reader = new FileReader();
-			reader.onload = () => {
-				setImagePreviewUrl(reader.result);
-			};
-			reader.readAsDataURL(file);
-		}
-	};
-
-	//  const handleImageUpload = (e) => {
-	//   const file = e.target.files[0];
-	//   if (file) {
-	//     setImageFile(URL.createObjectURL(file));
-	//     setImageAttached(true);
-	//   }
-	//  };
-
-	/*
-	 */
-
-	//
 	const backendAddress = process.env.REACT_APP_API_URL;
 	// const backendAddress = `http://localhost:3001` ; // test
   console.log("backend Address: ", backendAddress)
-
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault();
-	// 	setIsLoading(true);
-	// };
 
 	return (
 		<GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
 			<Router>
 				<AuthProvider>
 					<Container fluid>
-						<div className="glass-container">
-							<h1 className="text-center mt-3">Ask Lola 😉</h1>
-						</div>
-
+          <Header />
 						<div className="App">
 						</div>
 						<Routes>

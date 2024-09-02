@@ -5,6 +5,7 @@ const {Configuration, OpenAIApi} = OpenAI;
 // const axios = require('axios');
 const secrets = require('../../../secrets')
 const messageRepository = require('../repositories/messageRepository'); // Importing the message repository
+const { sendTextToLola } = require('../controllers/messageController');
 
 const contentAnswer = secrets.contentAnswer;
 
@@ -78,7 +79,7 @@ const createLolaTextResponse = async (inputText) => {
     const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
     });
-    console.log("OpenAI API Key:", process.env.OPENAI_API_KEY);
+    // console.log("OpenAI API Key:", process.env.OPENAI_API_KEY);
 
 
     const openai = new OpenAIApi(configuration);

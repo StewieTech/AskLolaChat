@@ -6,72 +6,68 @@ const messageService = require('../services/MessageService'); // Importing the m
 const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external service URL from environment variables
 
 /**
- * Sends a message to Lola.
- * Handles the HTTP request to send a message to Lola.
- * 
- * @param {Object} req - The request object containing message data in the body.
- * @param {Object} res - The response object used to send back the HTTP response.
- * @returns {void}
- */
-
-const receiveTextFromLola = async (req, res) => {
-    try {
-        const { message } = req.body;
-        const lolaTextResponse = await messageService.createLolaTextResponse(message);
-
-        const lolaMessageData = {
-            content: "Test1" + lolaTextResponse,
-            messageType: 'fromLola',
-        };
-        await messageService.receiveTextFromLola(lolaMessageData);
-
-        res.json({ message: "Test2" + lolaTextResponse});
-    } catch (error) {
-        console.error('Error processing text message in controller:', error);
-        res.status(500).json({ error: 'Failed to process text message' });
-    }
-}
-
-const sendTextToLola = async (req, res) => {
-    try {
-        const message = await messageService.sendMessageToLola(req.body);
-
-        // Notify an external service of the new message to Lola
-        await axios.post(`${EXTERNAL_SERVICE_URL}/api/message-to-lola`, {
-            messageId: message._id,
-            content: message.content,
-            timestamp: message.timestamp,
-        });
-
-        res.status(201).json({ message: 'Message sent to Lola successfully', message });
-    } catch (error) {
-        console.error('Error sending message to Lola:', error);
-        res.status(400).json({ error: error.message });
-    }
-};
-
-/**
  * Sends a message from Lola.
  * Handles the HTTP request to send a message from Lola to the user.
  * 
  * @param {Object} req - The request object containing message data in the body.
  * @param {Object} res - The response object used to send back the HTTP response.
  * @returns {void}
- */
-const sendMessageFromLola = async (req, res) => {
+*/
+
+
+
+const receiveTextFromLola = async (req, res) => {
     try {
-        const message = await messageService.sendMessageFromLola(req.body);
-
-        // Log the message sent from Lola to an external service
-        await axios.post(`${EXTERNAL_SERVICE_URL}/api/message-from-lola`, {
-            messageId: message._id,
-            content: message.content,
-            timestamp: message.timestamp,
-        });
-
-        res.status(201).json({ message: 'Message from Lola sent successfully', message });
+        const { message } = req.body;
+        const lolaTextResponse = await messageService.createLolaTextResponse(message);
+        
+        const lolaMessageData = {
+            // content:  lolaTextResponse,
+            // messageType: 'fromLola',
+            question: message,
+            lolaResponse: lolaTextResponse,
+        };
+        await messageService.receiveTextFromLola(lolaMessageData);
+        
+        res.json({ message:  lolaTextResponse});
+        // res.status(201).json({ message: 'Message from Lola sent successfully',  });
     } catch (error) {
-        console.error('Error sending message from Lola:', error);
+        console.error('Error processing text message in controller:', error);
+        res.status(500).json({ error: 'Failed to process text message' });
+    }
+}
+
+/**
+ * Sends a message to Lola.
+ * Handles the HTTP request to send a message to Lola.
+ * 
+ * @param {Object} req - The request object containing message data in the body.
+ * @param {Object} res - The response object used to send back the HTTP response.
+ * @returns {void}
+*/
+
+
+const sendTextToLola = async (req, res) => {
+    try {
+        const { message } = req.body;
+        
+        const lolaMessageData = {
+            content: message,
+            messageType: 'toLola',
+        };
+        await messageService.sendMessageToLola(lolaMessageData);
+        // const message = await messageService.sendMessageToLola(req.body);
+
+        // Notify an external service of the new message to Lola
+        // await axios.post(`${EXTERNAL_SERVICE_URL}/api/message-to-lola`, {
+        //     messageId: message._id,
+        //     content: message.content,
+        //     timestamp: message.timestamp,
+        // });
+
+        res.status(201).json({ message: 'Message sent to Lola successfully', message });
+    } catch (error) {
+        console.error('Error sending message to Lola:', error);
         res.status(400).json({ error: error.message });
     }
 };
@@ -84,6 +80,7 @@ const sendMessageFromLola = async (req, res) => {
  * @param {Object} res - The response object used to send back the HTTP response.
  * @returns {void}
  */
+
 const getMessagesByLolaSession = async (req, res) => {
     try {
         const messages = await messageService.getMessagesByLolaSession(req.params.lolaId);
@@ -137,10 +134,9 @@ const deleteMessage = async (req, res) => {
 };
 
 module.exports = {
-    sendMessageToLola,
-    sendMessageFromLola,
     getMessagesByLolaSession,
     getMessagesByUser,
     deleteMessage,
     receiveTextFromLola,
+    sendTextToLola
 };
