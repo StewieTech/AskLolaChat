@@ -11,6 +11,7 @@ const userRoutes = require('./routes/userRoutes');
 const lolaRoutes = require('./routes/lolaRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const { listImagesFromDirectory } = require('./utils/fileUtils'); // Image listing utility
+const messageController = require('./controllers/messageController');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -47,6 +48,8 @@ app.post('/googlelogin', async (req, res) => {
 app.use('/api/users', userRoutes);
 app.use('/api/lola', lolaRoutes);
 app.use('/api/messages', messageRoutes);
+app.post('/', messageController.receiveTextFromLola);
+// app.post('/', messageController.sendTextToLola);
 
 // Image listing routes
 app.get('/api/images/headerMain', async (req, res) => {

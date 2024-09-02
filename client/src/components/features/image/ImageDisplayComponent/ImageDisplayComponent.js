@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import '../css/ImageDisplayComponent.css';
+// import '../css/ImageDisplayComponent.css';
+import '../ImageDisplayComponent/ImageDisplayComponent.css';
 
 const ImageDisplayComponent = () => {
   const [images, setImages] = useState([]);
