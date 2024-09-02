@@ -23,21 +23,20 @@ const registerUser = async (userData) => {
     return await userRepository.createUser(userToSave);
 };
 
-/**
- * @param {String} emailId
- * @param {String} password
- */
 
-const authenticatedUser = async (emailId, password) => {
+
+const authenticateUser = async (emailId, password) => {
     const user = await userRepository.findUserByEmail(emailId);
 
     if (!user) {
         throw new Error('User not found');
     }
+    const isMatch = await bcrypt.compare(password, user.password); 
 
-    if (user.password !== password) {
+    if (!isMatch) {
         throw new Error('Invalid credentials');
     }
+
 
     return user
 };
@@ -65,7 +64,7 @@ const deleteUserAccount = async (userId) => {
 
 module.exports = {
     registerUser,
-    authenticatedUser,
+    authenticateUser,
     updateUserDetails,
     deleteUserAccount,
 };

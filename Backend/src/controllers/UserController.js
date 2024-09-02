@@ -18,13 +18,13 @@ const registerUser = async (req, res) => {
         const user = await userService.registerUser(req.body);
 
         // Notify an external service that a new user has been registered (e.g., sending a welcome email)
-        await axios.post(`${EXTERNAL_SERVICE_URL}/api/user-registered`, {
-            userId: user.userId,
-            email: user.emailId,
-            name: user.name,
-        });
+        // await axios.post(`${EXTERNAL_SERVICE_URL}/api/user-registered`, {
+        //     userId: user.userId,
+        //     email: user.emailId,
+        //     name: user.name,
+        // });
 
-        res.status(201).json({ message: 'User registered successfully', user });
+        res.status(201).json({ success: true, message: 'User registered successfully', user });
     } catch (error) {
         console.error('Error registering user:', error);
         res.status(400).json({ error: error.message });
@@ -44,9 +44,10 @@ const loginUser = async (req, res) => {
         const user = await userService.authenticateUser(req.body.emailId, req.body.password);
 
         // Example: Fetch user-related data from an external API after successful login
-        const externalData = await axios.get(`${EXTERNAL_SERVICE_URL}/api/user-data/${user.userId}`);
+        // const externalData = await axios.get(`${EXTERNAL_SERVICE_URL}/api/user-data/${user.userId}`);
         
-        res.status(200).json({ message: 'Login successful', user, externalData: externalData.data });
+        res.status(200).json({ success: true, message: 'Login successful', user });
+        // res.status(200).json({ success: true, message: 'Login successful', user, externalData: externalData.data });
     } catch (error) {
         console.error('Error logging in user:', error);
         res.status(400).json({ error: error.message });
