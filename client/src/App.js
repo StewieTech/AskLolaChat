@@ -18,6 +18,7 @@ import DashboardNav from './components/common/Dashboard';
 import AuthScreen from './pages/AuthScreen/AuthScreen';
 import LolaChat from './components/features/messages/LolaChat';
 import Header from './components/common/Header';
+import RegisterScreen from './pages/RegisterScreen/RegisterScreen';
 
 // Assets LoL I am deleting all this wtf ??
 import './App.css';
@@ -65,10 +66,10 @@ function App() {
 						<Routes>
 							<Route path="/LolaChat" element={<LolaChat backendAddress={backendAddress} />} />
 							<Route path="/" element={<Navigate to="LolaChat" replace />} />
-							<Route path="/dashboard" element={<DashboardNav />} />
-							<Route path="/login" exact element={<RegistrationForm />} />
-							<Route path="/register" element={<RegistrationForm />} />
-							<Route path="/register-success" element={<RegistrationSuccess />} />
+							{/* <Route path="/dashboard" element={<DashboardNav />} /> */}
+							{/* <Route path="/login" exact element={<RegistrationForm />} /> */}
+							<Route path="/register" element={<RegisterScreen />} />
+							{/* <Route path="/register-success" element={<RegistrationSuccess />} /> */}
 							<Route path="/auth" element={<AuthScreen />} />
 						</Routes>
 						<NonsenseFooter />

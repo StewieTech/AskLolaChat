@@ -1,8 +1,10 @@
 // models/userModel.js
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 
 const UserSchema = new mongoose.Schema({
-    userId: String, // Unique identifier
+    userId: { type: Number, unique: true }, // This will be auto-incremented
     emailId: String, // User email
     gender: String, // Gender of the user
     googleId: String,
@@ -17,6 +19,9 @@ const UserSchema = new mongoose.Schema({
     isActive: { type: Boolean, default: true }, // Account active status
     preferences: { type: Map, of: String }, // Store user preferences as key-value pairs
 });
+
+UserSchema.plugin(AutoIncrement, { inc_field: 'userId' });
+
 
 
 module.exports = mongoose.model('User', UserSchema);

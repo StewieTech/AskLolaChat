@@ -2,6 +2,14 @@
 
 - I believe I need to make the conditional renders of components better. Currently right now, my app renders all the time within my App no matter what page I'm on. That is because I am not using exact routes. I also have everything in my App within App.js. I need to create AppRoutes for the routes. Also Refactor all my components into components. Need to understand if I want UseEffects for everything
 
+### Features
+
+- A User need to be able to Login, have a unique ID where all the information they provide get's tied to them
+- They eventually need to have a unique session that is also tied to that ID ? 
+- A User will need to pay using stripe
+
+
+
 ### Components
 #### Common
 - Button

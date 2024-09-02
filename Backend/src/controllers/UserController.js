@@ -1,7 +1,7 @@
 // src/controllers/userController.js
 
 const axios = require('axios'); // Importing axios for making HTTP requests
-const userService = require('../services/userService'); // Importing the user service
+const userService = require('../services/UserService'); // Importing the user service
 
 const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external service URL from environment variables
 

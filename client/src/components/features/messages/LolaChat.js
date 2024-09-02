@@ -87,8 +87,10 @@ const LolaChat = ({ backendAddress }) => {
 		} else {
 			const randomTimeout = Math.floor(Math.random() * (MAX_TIMEOUT - MIN_TIMEOUT + 1)) + MIN_TIMEOUT;
 			
+			
+			const url = `${backendAddress}/api/messages/lola-text`;
 			setTimeout(() => {
-				fetch(backendAddress, {
+				fetch(url, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({ message }),
@@ -146,17 +148,19 @@ const LolaChat = ({ backendAddress }) => {
 				</Col>
 			</Row>
 
-			<Row className="justify-content-center mt-3">
-				<Col xs={12} sm={8} md={6} lg={4}>
-					<ImageDisplayComponent />
-				</Col>
-			</Row>
 
 			<QuestionCount
 				questionCount={questionCount}
 				maxQuestionLimit={MAX_QUESTION_LIMIT_FREE}
 				onUpgradeClick={() => setShowProPopup(false)}
 			/>
+
+			<Row className="justify-content-center mt-3">
+				<Col xs={12} sm={8} md={6} lg={4}>
+					<ImageDisplayComponent />
+				</Col>
+			</Row>
+
 		</>
 	);
 };

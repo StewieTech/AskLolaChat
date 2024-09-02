@@ -48,7 +48,7 @@ app.post('/googlelogin', async (req, res) => {
 app.use('/api/users', userRoutes);
 app.use('/api/lola', lolaRoutes);
 app.use('/api/messages', messageRoutes);
-app.post('/', messageController.receiveTextFromLola);
+// app.post('/', messageController.receiveTextFromLola);
 // app.post('/', messageController.sendTextToLola);
 
 // Image listing routes

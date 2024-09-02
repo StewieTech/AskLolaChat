@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/to-lola', messageController.sendTextToLola);
 
 // Route to send a message from Lola to the user
-// router.post('/lola-text', messageController.receiveTextFromLola);
+router.post('/lola-text', messageController.receiveTextFromLola);
 
 // Route to fetch all messages in a Lola session
 router.get('/lola/:lolaId', messageController.getMessagesByLolaSession);

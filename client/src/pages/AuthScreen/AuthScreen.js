@@ -1,18 +1,23 @@
 // src/components/AuthScreen.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../AuthScreen/AuthScreen.css';
 import axios from 'axios';
 
 const AuthScreen = () => {
+  
+  const navigate = useNavigate();  // Initialize useNavigate
   
   const handleEmailAuth = () => {
     // Placeholder for email signup/login logic
     axios.post('/api/auth/email')
       .then(response => {
         console.log('Email auth successful:', response.data);
+        navigate('/register');  // Navigate to the register screen
       })
       .catch(error => {
         console.error('Error with email auth:', error);
+        navigate('/register');  // Navigate to the register screen even if there's an error
       });
   };
 
