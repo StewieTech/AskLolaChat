@@ -4,9 +4,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Badge from '../../components/common/Badge/Badge'; // Import the Badge component
 import './LoginScreen.css';
+import { useNavigate } from 'react-router-dom';
 
 const LoginScreen = () => {
   const formikRef = useRef(null);
+  const navigate = useNavigate();
 
   const initialValues = {
     emailId: '',
@@ -27,8 +29,15 @@ const LoginScreen = () => {
       const response = await axios.post('http://localhost:3001/api/users/login', values);
 
       if (response.data.success) {
-        setStatus({ success: 'Login successful!' });
-        // resetForm(); // Reset form on success
+        setStatus({ success: 'Login successful! Heading to Lola :) ...' });
+        // Store the token and user data in local storage
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        setTimeout(() => {
+            navigate('/LolaChat');
+            // resetForm(); // Reset form on success
+                }, 3000);
       } else {
         setStatus({ error: 'Login failed' });
       }

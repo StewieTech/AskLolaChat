@@ -1,17 +1,18 @@
-// models/userModel.js
+// models/lolaModel.js
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const LolaSchema = new mongoose.Schema({
-    lolaId: String, // Unique identifier for Lola's session or relationship to the user
+    lolaId: { type: Number, unique: true }, // Auto-incremented primary key
     messagesFromLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages from Lola
     messagesToLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages to Lola
     relationshipLevel: Number, // A numeric value representing the relationship depth
     sessionStart: { type: Date, default: Date.now }, // Start time of the interaction session
     sessionEnd: Date, // End time of the interaction session
     interactionCount: { type: Number, default: 0 }, // Number of interactions
-    sentimentAnalysis: String, // Optionally store sentiment analysis results here});
-})
+    sentimentAnalysis: String, // Optionally store sentiment analysis results here
+});
 
-
+LolaSchema.plugin(AutoIncrement, { inc_field: 'lolaId' });
 
 module.exports = mongoose.model('Lola', LolaSchema);

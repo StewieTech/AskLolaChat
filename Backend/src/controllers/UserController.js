@@ -1,7 +1,10 @@
 // src/controllers/userController.js
 
+require('dotenv').config();
+
 const axios = require('axios'); // Importing axios for making HTTP requests
 const userService = require('../services/UserService'); // Importing the user service
+const jwt = require('jsonwebtoken')
 
 const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external service URL from environment variables
 
@@ -42,11 +45,14 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const user = await userService.authenticateUser(req.body.emailId, req.body.password);
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        console.log(JWT_SECRET);
+
 
         // Example: Fetch user-related data from an external API after successful login
         // const externalData = await axios.get(`${EXTERNAL_SERVICE_URL}/api/user-data/${user.userId}`);
         
-        res.status(200).json({ success: true, message: 'Login successful', user });
+        res.status(200).json({ success: true, token, message: 'Login successful', user });
         // res.status(200).json({ success: true, message: 'Login successful', user, externalData: externalData.data });
     } catch (error) {
         console.error('Error logging in user:', error);
