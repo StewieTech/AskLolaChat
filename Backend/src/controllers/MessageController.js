@@ -18,18 +18,24 @@ const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external 
 
 const receiveTextFromLola = async (req, res) => {
     try {
+        console.log('User Info:', req.user); // Log the entire req.user object
+
         const { message } = req.body;
+        const userId = req.user.id;
+        // const lolaId = req.session.lolaId || req.body.lolaId; // If using session or passing lolaId directly
+
         const lolaTextResponse = await messageService.createLolaTextResponse(message);
         
         const lolaMessageData = {
             // content:  lolaTextResponse,
             // messageType: 'fromLola',
+            userId,
             question: message,
             lolaResponse: lolaTextResponse,
         };
         await messageService.receiveTextFromLola(lolaMessageData);
         
-        res.json({ message:  lolaTextResponse});
+        res.status(201).json({ message: lolaTextResponse });
         // res.status(201).json({ message: 'Message from Lola sent successfully',  });
     } catch (error) {
         console.error('Error processing text message in controller:', error);

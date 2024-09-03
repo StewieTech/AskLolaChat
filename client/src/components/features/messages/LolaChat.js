@@ -1,4 +1,4 @@
-// src/components/Chat/Chat.js
+// src/components/features/LolaChat.js
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import TextAreaComponent from './TextAreaComponent';
@@ -87,8 +87,10 @@ const LolaChat = ({ backendAddress }) => {
 		} else {
 			const randomTimeout = Math.floor(Math.random() * (MAX_TIMEOUT - MIN_TIMEOUT + 1)) + MIN_TIMEOUT;
 			
+			
+			const url = `${backendAddress}api/messages/lola-text`;
 			setTimeout(() => {
-				fetch(backendAddress, {
+				fetch(url, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({ message }),
@@ -104,7 +106,7 @@ const LolaChat = ({ backendAddress }) => {
 					})
 					.catch((error) => {
 						console.error('Error:', error);
-						setResponse('Error: Request failed');
+						setResponse('Error: Message (No Image) Request failed');
 					})
 					.finally(() => {
 						setIsLoading(false);

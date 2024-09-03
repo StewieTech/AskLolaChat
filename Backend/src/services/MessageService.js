@@ -91,7 +91,7 @@ const createLolaTextResponse = async (inputText) => {
             {role: "system", content: contentAnswer},
             {role: "user", content: inputText},
         ],
-        "max_tokens": 80,
+        "max_tokens": 40,
         "temperature": 0
     });
     

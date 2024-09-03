@@ -1,0 +1,70 @@
+const userRepository = require('../repositories/UserRepository')
+const bcrypt = require('bcrypt');
+
+
+/**
+ * Registers a new user.
+ * 
+ * @param {Object} userData - The data of the user to be registered.
+ * @returns {Object} - The created user object.
+ * @throws {Error} - Throws an error if the email is already registered.
+ */
+const registerUser = async (userData) => {
+    const existingUser = await userRepository.findUserByEmail(userData.emailId);
+
+    if (existingUser) {
+        throw new Error('User with this email already exists');
+    }
+
+    // Hash the user's password before saving it
+    const hashedPassword = await bcrypt.hash(userData.password, 10); // 10 is the salt rounds
+    const userToSave = { ...userData, password: hashedPassword };
+
+    return await userRepository.createUser(userToSave);
+};
+
+
+
+const authenticateUser = async (emailId, password) => {
+    const user = await userRepository.findUserByEmail(emailId);
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+    const isMatch = await bcrypt.compare(password, user.password); 
+
+    if (!isMatch) {
+        throw new Error('Invalid credentials');
+    }
+
+
+    return user
+};
+
+
+/**
+ * @param {Object} updateData
+ */
+
+const updateUserDetails = async (userId, updateData) => {
+    return await userRepository.updateUserById(userId, updateData);
+};
+
+/**
+ * 
+ * @param userId 
+ * @returns {Object}
+ */
+
+const deleteUserAccount = async (userId) => {
+    return await userRepository.deleteUserById(userId);
+};
+
+
+
+module.exports = {
+    registerUser,
+    authenticateUser,
+    updateUserDetails,
+    deleteUserAccount,
+};
