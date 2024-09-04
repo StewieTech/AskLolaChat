@@ -55,6 +55,14 @@ const LolaChat = ({ backendAddress }) => {
 		e.preventDefault();
 		setIsLoading(true);
 
+		const token = localStorage.getItem('token');
+
+		if (!token) {
+			console.error('No toekn found!! Please login!!.');
+			setResponse('Error: no token fond!!!. Login PLEASE!');
+			return ;
+		};
+
 		if (imageFile) {
 			const formData = new FormData();
 			formData.append('image', imageFile);
@@ -64,6 +72,9 @@ const LolaChat = ({ backendAddress }) => {
 
 			fetch(url, {
 				method: 'POST',
+				headers: {
+					'Authorization': `Bearer ${token}`,
+				},
 				body: formData,
 			})
 				.then((res) => res.json())
@@ -92,7 +103,10 @@ const LolaChat = ({ backendAddress }) => {
 			setTimeout(() => {
 				fetch(url, {
 					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
+					headers: { 
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`,
+					 },
 					body: JSON.stringify({ message }),
 				})
 					.then((res) => res.json())

@@ -48,7 +48,7 @@ const AuthScreen = () => {
       <div className="auth-header">
         <h1>Lola</h1>
       </div>
-      <p className="auth-subtitle">The AI Companion who cares</p>
+      <p className="auth-subtitle">Your Personal Relationship Expert</p>
       <p>Create account or log in with options below</p>
       <button className="auth-button email" onClick={handleEmailAuth}>
         Continue with Email
