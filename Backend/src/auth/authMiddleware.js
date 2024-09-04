@@ -1,6 +1,7 @@
 // auth/authMiddleware.js
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const authenticate = (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, user) => {
@@ -14,7 +15,9 @@ const authenticate = (req, res, next) => {
 
 
 const authenticateToken = (req, res, next) => {
-    const token = req.header('Authorization').replace('Bearer ', '');
+    // const token = req.header('Authorization').replace('Bearer ', '');
+    const token = req.header('Authorization')?.split(' ')[1]; // Assuming the token is passed as a Bearer token
+
 
     if (!token) {
         return res.status(401).json({ error: 'No token provided, authorization denied' });

@@ -43,10 +43,11 @@ const registerUser = async (req, res) => {
  * @returns {void}
  */
 const loginUser = async (req, res) => {
+    console.log("process env JWT SECRET", process.env.JWT_SECRET);
+    // console.log("JWT SECRET: ", JWT_SECRET);
     try {
         const user = await userService.authenticateUser(req.body.emailId, req.body.password);
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        console.log(JWT_SECRET);
 
 
         // Example: Fetch user-related data from an external API after successful login
