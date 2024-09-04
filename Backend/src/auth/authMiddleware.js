@@ -26,6 +26,7 @@ const authenticateToken = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded; // You can access the user's data in other routes now
+        console.log("this is req.user inside authenticateToken: ", req.user)
         next();
     } catch (error) {
         res.status(401).json({ error: 'Token is not valid' });

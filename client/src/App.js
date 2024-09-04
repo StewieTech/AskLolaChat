@@ -49,7 +49,6 @@ function App() {
 					<Container fluid>
           <Header />
 						<div className="App">
-						</div>
 						<Routes>
 							<Route path="/LolaChat" element={<LolaChat backendAddress={backendAddress} />} />
 							<Route path="/" element={<Navigate to="LolaChat" replace />} />
@@ -60,6 +59,7 @@ function App() {
 							<Route path="/auth" element={<AuthScreen />} />
 						</Routes>
 						<NonsenseFooter />
+						</div>
 					</Container>
 							<GoogleOAuth />
 				</AuthProvider>
