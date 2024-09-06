@@ -1,31 +1,47 @@
-import React from 'react';
-import {Navbar, Nav, Container} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FaCog } from 'react-icons/fa';
+import NavigationMenu from '../common/NavigationMenu/NavigationMenu';
 
-// import  Login  from './Login';
-// import  Login  from '../authentication/';
 
 const Header = () => {
+  const [showMenu, setShowMenu]  = useState(false);
+
+  const handleToggleMenu = () => {
+    setShowMenu(!showMenu);
+  }
+  
+ 
     return (
 
-        <div className="glass-container">
-    <h1 className="text-center mt-3">Ask Lola 😉</h1>
-    </div>
+    //     <div className="glass-container">
+    // <h1 className="text-center mt-3">Ask Lola 😉</h1>
+    // </div>
 // };
 
-//  <Navbar bg="light" expand="lg" variant="light">
-//       <Container>
-//         <Navbar.Brand href="#home">Ask Lola 😉</Navbar.Brand>
-//         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//         <Navbar.Collapse id="basic-navbar-nav">
-//           <Nav className="ml-auto">
-//             {/* <Nav.Link as={Login} to="/Login">Login</Nav.Link> */}
-//             <Nav.Link href="#about">About</Nav.Link>
-//             <Nav.Link href="#contact">Contact</Nav.Link>
-//           </Nav>
-//         </Navbar.Collapse>
-//       </Container>
-//     </Navbar>
-  );
+<header className="text-center mt-3">
+<Container fluid>
+  {/* <Row className="align-items-center"> */}
+			<Row className="justify-content-center mt-3">
+    {/* <Col xs={10}> */}
+				<Col xs={6} sm={8} md={10} lg={12}>
+      <h1 className="header-title">Ask Lola 😉
+      <FaCog
+        className="settings-icon"
+        onClick={handleToggleMenu}
+        style={{ fontSize: '1.5rem', cursor: 'pointer', color: '#8a2be2' }}
+      />
+      </h1>
+    </Col>
+  </Row>
+</Container>
+
+{/* Show Navigation Menu */}
+{showMenu && <NavigationMenu onClose={handleToggleMenu} />}
+</header>
+);
+
+
 }; 
 
 export default Header;

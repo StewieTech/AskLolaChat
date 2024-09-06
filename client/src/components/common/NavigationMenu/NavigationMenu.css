@@ -1,0 +1,41 @@
+/* src/components/common/NavigationMenu.css */
+.navigation-menu-modal .modal-content {
+    background-color: #3b3b3b;
+    color: white;
+    border-radius: 15px;
+  }
+  
+  .navigation-menu-modal .modal-header {
+    border-bottom: none;
+  }
+  
+  .navigation-menu-modal .menu-section h5 {
+    color: #8a2be2;
+  }
+  
+  .navigation-menu-modal .menu-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .navigation-menu-modal .menu-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #555;
+  }
+  
+  .navigation-menu-modal .menu-list li:hover {
+    background-color: #444;
+  }
+  
+  .navigation-menu-modal .btn-primary {
+    background-color: #8a2be2;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+  }
+  
+  .navigation-menu-modal .btn-secondary {
+    background-color: #666;
+    border: none;
+  }
+  
