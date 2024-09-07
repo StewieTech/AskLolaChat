@@ -1,7 +1,7 @@
 // src/components/features/LolaChat.js
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import TextAreaComponent from './TextAreaComponent';
+import TextAreaComponent from './TextAreaComponent/TextAreaComponent';
 import ImageDisplayComponent from '../image/ImageDisplayComponent/ImageDisplayComponent';
 import QuestionCount from './QuestionCount';
 

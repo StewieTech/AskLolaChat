@@ -1,9 +1,12 @@
 // src/components/common/NavigationMenu.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import './NavigationMenu.css';
+import AuthContext from '../../authentication/AuthContext';
 
 const NavigationMenu = ({ onClose }) => {
+    const { handleLogout } = useContext(AuthContext);
+
   return (
     <Modal show onHide={onClose} dialogClassName="navigation-menu-modal">
       <Modal.Header closeButton>
@@ -33,8 +36,11 @@ const NavigationMenu = ({ onClose }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Close
+        <Button variant="secondary" onClick={
+            () => { 
+                handleLogout();  onClose(); 
+                }}>
+        Logout
         </Button>
       </Modal.Footer>
     </Modal>
