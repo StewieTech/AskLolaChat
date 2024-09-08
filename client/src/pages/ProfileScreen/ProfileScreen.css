@@ -1,0 +1,26 @@
+.profile-screen {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1a1a1a;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .profile-screen h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-screen .form-control {
+    background-color: #333;
+    color: white;
+  }
+  
+  .profile-screen .btn-primary {
+    background-color: #8a2be2;
+    border: none;
+    width: 100%;
+  }
+  
