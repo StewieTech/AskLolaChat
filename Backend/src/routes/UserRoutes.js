@@ -2,8 +2,11 @@
 
 const express = require('express');
 const userController = require('../controllers/UserController');
+const authenticateToken = require('../auth/authMiddleware');
 
 const router = express.Router();
+
+router.get('/profile', authenticateToken, userController.getUserProfile);
 
 // Route to register a new user
 router.post('/register', userController.registerUser);
@@ -12,9 +15,9 @@ router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser);
 
 // Route to update user details
-router.put('/:userId', userController.updateUserDetails);
+router.put('/:userId', authenticateToken, userController.updateUserDetails);
 
 // Route to delete a user account
-router.delete('/:userId', userController.deleteUserAccount);
+router.delete('/:userId', authenticateToken, userController.deleteUserAccount);
 
 module.exports = router;

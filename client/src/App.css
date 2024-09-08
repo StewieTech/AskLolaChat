@@ -1,7 +1,13 @@
 
-
-
-
+/* Global styles for centering the content */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh; /* Ensures full screen height */
+  background-color: #1a1a1a; /* Dark background for styling */
+}
 
 
 
@@ -9,8 +15,6 @@
   align-items: center;
   text-align: center;
 }
-
-
 
 
 /* Ask your wingwomen anything */
@@ -35,25 +39,15 @@ textarea {
 
 
 
+/* Style for the textarea container */
 .textarea-container {
-
-  /* Define the initial height of the textarea */
-  /* height: 100% ; */
-  /* width: 90%;  */
-  align-items: right;
-  height: 75%;
-
-  /* display: flex; */
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-
-  justify-content: flex-end; 
-  /* Right-align the elements */
-
-  /* Other styles for the container */
-  transition: width 0.5s ease-in;
-  /* overflow: hidden; */
-
+  width: 100%; /* Make it responsive */
+  max-width: 600px;
+  margin: 0 auto; /* Center horizontally */
 }
 /* 
 .textarea-container.expanded {
@@ -87,16 +81,6 @@ textarea {
 
 
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  align-items: flex-start; /* Align items to the top */
-  
-}
-
-
 
 .text-center {
   width: 100%;
@@ -112,5 +96,12 @@ textarea {
   align-items: center;
   justify-content: flex-start;
   width: 100%
+}
+
+.settings-icon {
+  position: relative;
+  right: -25%; /* Align the icon to the right */
+  top: 15% ;
+  transform: translateY(-50%); /* Vertically center the icon */
 }
 

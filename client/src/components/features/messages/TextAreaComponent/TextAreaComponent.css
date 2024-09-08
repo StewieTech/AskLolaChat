@@ -1,0 +1,75 @@
+/* Main message bar styling */
+.message-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1a1a1a;
+    border-radius: 50px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+    transition: box-shadow 0.3s ease-in-out;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  /* Camera icon on the left */
+  .camera-icon {
+    font-size: 1.5rem;
+    color: #8a2be2;
+    cursor: pointer;
+    margin-right: 15px;
+  }
+  
+  /* Textarea for entering the message */
+  .message-textarea {
+    flex-grow: 1;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .message-textarea.focus {
+    border: 2px solid #8a2be2; /* Purple border when focused */
+  }
+  
+  .message-textarea::placeholder {
+    color: #bbb; /* Placeholder color */
+  }
+  
+  /* Send Arrow styling */
+  .arrow-icon {
+    font-size: 1.5rem;
+    color: #8a2be2; /* Purple */
+    margin-left: auto;
+  }
+  
+  .image-preview img {
+    max-width: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  /* Send button styling */
+  .send-button {
+    background-color: #8a2be2;
+    border-radius: 25px;
+    border: none;
+    margin-top: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .message-textarea {
+      font-size: 0.9rem;
+    }
+  }
+  

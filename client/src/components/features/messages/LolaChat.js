@@ -1,13 +1,13 @@
 // src/components/features/LolaChat.js
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import TextAreaComponent from './TextAreaComponent';
+import TextAreaComponent from './TextAreaComponent/TextAreaComponent';
 import ImageDisplayComponent from '../image/ImageDisplayComponent/ImageDisplayComponent';
 import QuestionCount from './QuestionCount';
 
 const MIN_TIMEOUT = 2500;
 const MAX_TIMEOUT = 5000;
-const MAX_QUESTION_LIMIT_FREE = 10;
+const MAX_QUESTION_LIMIT_FREE = 1;
 
 const LolaChat = ({ backendAddress }) => {
 	const [message, setMessage] = useState('');
@@ -55,6 +55,14 @@ const LolaChat = ({ backendAddress }) => {
 		e.preventDefault();
 		setIsLoading(true);
 
+		const token = localStorage.getItem('token');
+
+		if (!token) {
+			console.error('No toekn found!! Please login!!.');
+			setResponse('Error: no token fond!!!. Login PLEASE!');
+			return ;
+		};
+
 		if (imageFile) {
 			const formData = new FormData();
 			formData.append('image', imageFile);
@@ -64,6 +72,9 @@ const LolaChat = ({ backendAddress }) => {
 
 			fetch(url, {
 				method: 'POST',
+				headers: {
+					'Authorization': `Bearer ${token}`,
+				},
 				body: formData,
 			})
 				.then((res) => res.json())
@@ -92,7 +103,10 @@ const LolaChat = ({ backendAddress }) => {
 			setTimeout(() => {
 				fetch(url, {
 					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
+					headers: { 
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`,
+					 },
 					body: JSON.stringify({ message }),
 				})
 					.then((res) => res.json())
@@ -117,8 +131,8 @@ const LolaChat = ({ backendAddress }) => {
 
 	return (
 		<>
-			<Row className="justify-content-center">
-				<Col xs={12} sm={8} md={6} lg={4}>
+			<Row className="justify-content-center mt-3">
+				<Col xs={6} sm={8} md={10} lg={12}>
 					<TextAreaComponent
 						message={message}
 						setMessage={setMessage}
@@ -135,7 +149,7 @@ const LolaChat = ({ backendAddress }) => {
 
 			{/* Lola's Response */}
 			<Row className="justify-content-center mt-3">
-				<Col xs={12} sm={8} md={6} lg={4}>
+			<Col xs={6} sm={8} md={10} lg={12}>
 					{isLoading ? (
 						<h2 className="flashyDots"> . </h2>
 					) : (
@@ -149,7 +163,7 @@ const LolaChat = ({ backendAddress }) => {
 			</Row>
 
 			<Row className="justify-content-center mt-3">
-				<Col xs={12} sm={8} md={6} lg={4}>
+			<Col xs={6} sm={8} md={10} lg={12}>
 					<ImageDisplayComponent />
 				</Col>
 			</Row>

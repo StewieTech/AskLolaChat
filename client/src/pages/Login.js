@@ -1,33 +1,44 @@
-// Login.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { AuthContext } from '../components/authentication/AuthContext'; // Import AuthContext to access login function
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext); // Destructure the login function from AuthContext
+  const navigate = useNavigate(); // Use navigate to redirect user after successful login
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here (e.g., perform a fetch request to the login endpoint)
-    // You can use the same approach as in the App.js handleSubmit function.
 
-    // Example fetch request:
-    fetch(process.env.REACT_APP_LOGIN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // Handle the response (e.g., set authentication token in local storage, redirect, etc.)
-        console.log('Login response:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        // Handle error (e.g., show error message on the login form)
+    try {
+      const response = await fetch(process.env.REACT_APP_LOGIN_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
       });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Login response:', data);
+
+        // Use the login function from AuthContext to update global auth state
+        login(data.token); // Assuming the backend returns a JWT token in the response
+
+        // Redirect to the dashboard or another authenticated route
+        navigate('/LolaChat');
+      } else {
+        console.error('Login failed:', data.message);
+        // Handle error (e.g., show error message on the login form)
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error (e.g., show error message on the login form)
+    }
   };
 
   return (

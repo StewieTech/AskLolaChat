@@ -19,6 +19,7 @@ import AuthScreen from './pages/AuthScreen/AuthScreen';
 import LolaChat from './components/features/messages/LolaChat';
 import Header from './components/common/Header';
 import RegisterScreen from './pages/RegisterScreen/RegisterScreen';
+import ProfileScreen from './pages/ProfileScreen/ProfileScreen';
 
 // Assets LoL I am deleting all this wtf ??
 import './App.css';
@@ -27,14 +28,6 @@ import './css/Typography.css';
 import './css/FormsAndButtons.css';
 import './css/Animations.css';
 import LoginScreen from './pages/LoginScreen/LoginScreen';
-
-// // Constants probably in Lola Chat
-// const MIN_TIMEOUT = 2500;
-// const MAX_TIMEOUT = 5000;
-// const MAX_QUESTION_LIMIT_FREE = 10;
-
-console.log(process.env.REACT_APP_API_URL);
-console.log('Hey');
 
 function App() {
 
@@ -49,17 +42,16 @@ function App() {
 					<Container fluid>
           <Header />
 						<div className="App">
-						</div>
 						<Routes>
 							<Route path="/LolaChat" element={<LolaChat backendAddress={backendAddress} />} />
 							<Route path="/" element={<Navigate to="LolaChat" replace />} />
-							{/* <Route path="/dashboard" element={<DashboardNav />} /> */}
 							<Route path="/login" exact element={<LoginScreen />} />
 							<Route path="/register" element={<RegisterScreen />} />
-							{/* <Route path="/register-success" element={<RegistrationSuccess />} /> */}
+							<Route path="/profile" element={<ProfileScreen />} />
 							<Route path="/auth" element={<AuthScreen />} />
 						</Routes>
 						<NonsenseFooter />
+						</div>
 					</Container>
 							<GoogleOAuth />
 				</AuthProvider>
@@ -82,12 +74,3 @@ export default App;
 // then pop up for them to pay comes up
 // pop up copies rizz (share for free, pay for more)
 
-// I can remove the OCR and upload it when it fully works
-// Just need to commit all of it out
-
-// Eventuall
-// Fix OCR
-// update prompt based on time talking with Lola
-
-// character limit
-// if textbox is blank

@@ -7,9 +7,18 @@
 - A User need to be able to Login, have a unique ID where all the information they provide get's tied to them
 - They eventually need to have a unique session that is also tied to that ID ? 
 - A User will need to pay using stripe
+- need to understand what the line below does better:
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 #### Prototype
+- Profile Page that displays current signed in user's info
 - Forgot Password, Password Reset, Email Verification
+- Logout (are you sure menu)
+- update the Pro button
+
+
+#### MVP
+- Add Stripe
 
 #### MVP 2.0
 - Oauth Provider automatically filled in from their manual form and connected to their gmail so they can sign in with it in the future, or at least connect there accounts

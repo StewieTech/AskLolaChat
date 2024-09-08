@@ -60,6 +60,10 @@ const deleteUserAccount = async (userId) => {
     return await userRepository.deleteUserById(userId);
 };
 
+const findUserById = async (userId) => {
+    return await userRepository.findUserById(userId);
+};
+
 
 
 module.exports = {
@@ -67,4 +71,5 @@ module.exports = {
     authenticateUser,
     updateUserDetails,
     deleteUserAccount,
+    findUserById,
 };
