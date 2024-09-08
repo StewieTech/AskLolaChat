@@ -1,13 +1,32 @@
 // src/components/common/NavigationMenu.js
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import './NavigationMenu.css';
 import AuthContext from '../../authentication/AuthContext';
+import Badge from '../Badge/Badge';
+import { useNavigate } from 'react-router-dom';
 
 const NavigationMenu = ({ onClose }) => {
+    const navigate = useNavigate();
     const { handleLogout } = useContext(AuthContext);
+    const [ showBadge, setShowBadge ] = useState(false);
+
+    const handleLogoutClick = () => {
+        setShowBadge(true);
+        setTimeout(() => {
+            handleLogout();
+            setShowBadge(false);
+            onClose();
+        }, 4000);
+    }
+
+    const handleProfileClick = () => {
+        navigate('/profile');
+    }
 
   return (
+    <>
+
     <Modal show onHide={onClose} dialogClassName="navigation-menu-modal">
       <Modal.Header closeButton>
         <Modal.Title>Settings</Modal.Title>
@@ -19,8 +38,8 @@ const NavigationMenu = ({ onClose }) => {
 
         <div className="menu-section">
           <h5>General</h5>
-          <ul className="menu-list">
-            <li>My profile</li>
+          <ul className="menu-list" >
+            <li onClick={handleProfileClick}>My profile</li>
             <li>Account settings</li>
             <li>PIN and Face ID</li>
             <li>Version history (Beta)</li>
@@ -36,14 +55,16 @@ const NavigationMenu = ({ onClose }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={
-            () => { 
-                handleLogout();  onClose(); 
-                }}>
+    
+    { showBadge && (
+        <Badge type="success" message="Logging Out... See ya Next Time :)"/>
+    )}
+        <Button variant="secondary" onClick={ handleLogoutClick }>
         Logout
         </Button>
       </Modal.Footer>
     </Modal>
+    </>
   );
 };
 

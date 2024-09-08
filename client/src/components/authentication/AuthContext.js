@@ -21,6 +21,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserProfile = async (token) => {
     try {
+      if (!token) return;
+      
       const res = await fetch('http://localhost:3001/api/users/profile', {
         method: 'GET',
         headers: {
@@ -30,6 +32,8 @@ export const AuthProvider = ({ children }) => {
       const data = await res.json();
       if (data.success) {
         setUser(data.user); // Set user data from backend
+        console.log('User profile fetched:', data.user);
+
       }
     } catch (err) {
       console.error('Error fetching user profile:', err);

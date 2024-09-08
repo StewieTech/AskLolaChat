@@ -12,17 +12,19 @@ const ProfileScreen = () => {
     interest: '',
     email: '',
   });
-
+  
   useEffect(() => {
     if (user) {
+      // Log user data for debugging
+      console.log("User object received in ProfileScreen:", user);
+
       // Load user data into profileData
-      console.log("logging user in useEffect: ", user);
       setProfileData({
-        name: user.name,
-        gender: user.gender,
-        birthday: user.birthday,
-        interest: user.interest,
-        email: user.emailId, // Email should be readonly
+        name: user.name || '',
+        gender: user.gender || '',
+        birthday: user.birthday || '',
+        interest: user.interest || '',
+        email: user.emailId || '', // Email should be readonly
       });
     }
   }, [user]);
