@@ -5,7 +5,6 @@ const {Configuration, OpenAIApi} = OpenAI;
 // const axios = require('axios');
 const secrets = require('../../../secrets')
 const messageRepository = require('../repositories/messageRepository'); // Importing the message repository
-const { sendTextToLola } = require('../controllers/messageController');
 
 const contentAnswer = secrets.contentAnswer;
 

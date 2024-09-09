@@ -43,11 +43,11 @@ const registerUser = async (req, res) => {
  * @returns {void}
  */
 const loginUser = async (req, res) => {
-    console.log("process env JWT SECRET", process.env.JWT_SECRET);
-    // console.log("JWT SECRET: ", JWT_SECRET);
+    // console.log("process env JWT SECRET in Login", process.env.JWT_SECRET);
     try {
         const user = await userService.authenticateUser(req.body.emailId, req.body.password);
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
 
 
         // Example: Fetch user-related data from an external API after successful login
@@ -126,10 +126,34 @@ const getUserProfile = async (req, res) => {
     }
 };
 
+const updateUserProfile = async (req, res) =>  {
+    try {
+        const userId = req.user.id
+        const profileData = req.body;
+        console.log('userId from controller: ', userId);
+        console.log('Profile data received:', profileData); // Debug log
+
+
+        const updatedUser = await userService.updateUserProfile(userId, profileData);
+
+        if (!updatedUser) {
+            return res.status(404).json({ success: false, message: 'User not found!!' });
+        } 
+
+        res.status(200).json({ success: true, user: updatedUser });
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        res.status(500).json({ success: false, message: 'Failed to update profile' });
+    }
+};
+
+
+
 module.exports = {
     registerUser,
     loginUser,
     updateUserDetails,
     deleteUserAccount,
     getUserProfile,
+    updateUserProfile,
 };

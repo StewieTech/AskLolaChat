@@ -17,6 +17,8 @@ require('dotenv').config();
 const authenticateToken = (req, res, next) => {
     // const token = req.header('Authorization').replace('Bearer ', '');
     const token = req.header('Authorization')?.split(' ')[1]; // Assuming the token is passed as a Bearer token
+    // console.log('Received token:', token); // Debug log to check the token
+
 
 
     if (!token) {
@@ -26,7 +28,7 @@ const authenticateToken = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded; // You can access the user's data in other routes now
-        console.log("this is req.user inside authenticateToken: ", req.user)
+        // console.log("this is req.user inside authenticateToken: ", req.user)
         next();
     } catch (error) {
         res.status(401).json({ error: 'Token is not valid' });

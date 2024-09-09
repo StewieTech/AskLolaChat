@@ -13,9 +13,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check for token in localStorage when app initializes
     const storedToken = localStorage.getItem('authToken');
-    if (storedToken) {
+    const storedUser = localStorage.getItem('user');
+
+    if (storedToken && storedUser) {
       setAuthToken(storedToken);
-      fetchUserProfile(storedToken);
+      setUser(JSON.parse(storedUser));
+      // fetchUserProfile(storedToken);
     }
   }, []);
 
@@ -23,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     try {
       if (!token) return;
       
+      console.log('Fetching user profile with token:', token); // Debug log
       const res = await fetch('http://localhost:3001/api/users/profile', {
         method: 'GET',
         headers: {
@@ -41,11 +45,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = (token) => {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem('authToken', token); // what's this line do again ?
+    localStorage.setItem('user', JSON.stringify(user)); // Store user in localStorage
+
     setAuthToken(token);
+    setUser(user);
     fetchUserProfile(token);
     
   };
+
+  
 
   const handleLogout = () => {
     googleLogout();

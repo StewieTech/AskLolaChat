@@ -9,6 +9,8 @@
 - A User will need to pay using stripe
 - need to understand what the line below does better:
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+- Master account 
+- 
 
 #### Prototype
 - Profile Page that displays current signed in user's info
@@ -19,6 +21,11 @@
 
 #### MVP
 - Add Stripe
+- Affiliate services
+- An Influencer Account gets free questions when 
+- Master Dev account
+
+- Free accounts only see a Gif of Lola and are immediately prompted to signup
 
 #### MVP 2.0
 - Oauth Provider automatically filled in from their manual form and connected to their gmail so they can sign in with it in the future, or at least connect there accounts
