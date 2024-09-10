@@ -5,6 +5,7 @@ const {Configuration, OpenAIApi} = OpenAI;
 // const axios = require('axios');
 const secrets = require('../../../secrets')
 const messageRepository = require('../repositories/messageRepository'); // Importing the message repository
+const MessageModel = require ('../models/MessageModel');
 
 const contentAnswer = secrets.contentAnswer;
 
@@ -32,10 +33,37 @@ const sendMessageToLola = async (messageData) => {
  * @returns {Object} - The created message object.
  * @throws {Error} - Throws an error if there is an issue during message creation.
  */
-const receiveTextFromLola = async (messageData) => {
-    // const lolaTextResponse = await createLolaTextResponse(messageData.content);
-    // const newMessageData = { ...messageData, content: lolaTextResponse};
-    return await messageRepository.createMessage(messageData);
+
+// const receiveTextFromLola = async (messageData) => {
+//     return await messageRepository.createMessage(messageData);
+// };
+
+const receiveTextFromLola = async (message, userId) => {
+  try {
+    const user = await messageRepository.getUserById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const lolaTextResponse = await createLolaTextResponse(message);
+
+    const lolaMessageData = {
+      userId: user.userId,
+      emailId: user.emailId,
+      question: message,
+      lolaResponse: lolaTextResponse,
+    };
+
+    await messageRepository.createMessage(lolaMessageData);
+    // await MessageModel.create(lolaMessageData);
+
+
+    return lolaTextResponse;
+  } catch (error) {
+    console.error("Error receiving message: ", error);
+    throw error;
+  }
 };
 
 /**

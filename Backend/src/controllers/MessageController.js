@@ -24,16 +24,10 @@ const receiveTextFromLola = async (req, res) => {
         const userId = req.user.id;
         // const lolaId = req.session.lolaId || req.body.lolaId; // If using session or passing lolaId directly
 
-        const lolaTextResponse = await messageService.createLolaTextResponse(message);
+        // const lolaTextResponse = await messageService.createLolaTextResponse(message);
         
-        const lolaMessageData = {
-            // content:  lolaTextResponse,
-            // messageType: 'fromLola',
-            userId,
-            question: message,
-            lolaResponse: lolaTextResponse,
-        };
-        await messageService.receiveTextFromLola(lolaMessageData);
+    
+        const lolaTextResponse = await messageService.receiveTextFromLola(message, userId);
         
         res.status(201).json({ message: lolaTextResponse });
         // res.status(201).json({ message: 'Message from Lola sent successfully',  });
