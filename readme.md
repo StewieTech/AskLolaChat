@@ -19,6 +19,8 @@
 - Pro Popup Component
 - Session Information
 - Update Session information for Lola and add emailId to message Schema
+- QuestionCount should persist in MongoDB database
+- When User clicks Profile NavMenu should close; should do this for most menu options
 
 
 #### MVP

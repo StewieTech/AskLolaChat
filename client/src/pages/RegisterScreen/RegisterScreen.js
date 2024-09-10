@@ -4,9 +4,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Badge from '../../components/common/Badge/Badge'; // Import the Badge component
 import './RegisterScreen.css';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterScreen = () => {
   const formikRef = useRef(null);
+  const navigate = useNavigate();
 
   const initialValues = {
     emailId: '',
@@ -24,13 +26,15 @@ const RegisterScreen = () => {
       .required('Password is required'),
   });
 
-  const onSubmit = async (values, { setSubmitting, setStatus, resetForm }) => {
+  const onSubmit = async (values, { setSubmitting, setStatus }) => {
     try {
       const response = await axios.post('http://localhost:3001/api/users/register', values);
 
       if (response.data.success) {
         setStatus({ success: 'Registration successful!' });
-        // resetForm(); // Reset form on success
+        setTimeout(() => {
+          navigate('/login')
+        }, 2000)
       } else {
         setStatus({ error: 'Registration failed' });
       }
