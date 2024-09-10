@@ -64,6 +64,18 @@ const findUserById = async (userId) => {
     return await userRepository.findUserById(userId);
 };
 
+const updateUserProfile = async (userId, profileData) =>  {
+    const existingUser = await userRepository.findUserById(userId);
+
+    if (!existingUser) {
+        throw new Error('User not found');
+    }
+
+    const updatedUser = await userRepository.updateUserById(userId, profileData);
+
+    return updatedUser; 
+}
+
 
 
 module.exports = {
@@ -72,4 +84,5 @@ module.exports = {
     updateUserDetails,
     deleteUserAccount,
     findUserById,
+    updateUserProfile,
 };

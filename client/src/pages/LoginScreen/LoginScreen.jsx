@@ -1,14 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import Badge from '../../components/common/Badge/Badge'; // Import the Badge component
-import './LoginScreen.css';
 import { useNavigate } from 'react-router-dom';
+
+import Badge from '../../components/common/Badge/Badge'; // Import the Badge component
+import AuthContext from '../../components/authentication/AuthContext';
+import './LoginScreen.css';
 
 const LoginScreen = () => {
   const formikRef = useRef(null);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext) ;
 
   const initialValues = {
     emailId: '',
@@ -31,13 +34,14 @@ const LoginScreen = () => {
       if (response.data.success) {
         setStatus({ success: 'Login successful! Heading to Lola :) ...' });
         // Store the token and user data in local storage
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+        // localStorage.setItem('token', response.data.token);
+        // localStorage.setItem('user', JSON.stringify(response.data.user));
+        login(response.data.token, response.data.user);
         
         setTimeout(() => {
             navigate('/LolaChat');
             // resetForm(); // Reset form on success
-                }, 3000);
+                }, 2500);
       } else {
         setStatus({ error: 'Login failed' });
       }

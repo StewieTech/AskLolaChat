@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     lastLogin: { type: Date }, // Last login timestamp
     subscriptionType: { 
         type: String, 
-        enum: ['Free', 'Premium'], 
+        enum: ['Free', 'Premium', 'Developer'], 
         default: 'Free' 
     }, // e.g., 'free', 'premium'
     isActive: { type: Boolean, default: true }, // Account active status

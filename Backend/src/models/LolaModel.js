@@ -10,7 +10,8 @@ const LolaSchema = new mongoose.Schema({
     sessionStart: { type: Date, default: Date.now }, // Start time of the interaction session
     sessionEnd: Date, // End time of the interaction session
     interactionCount: { type: Number, default: 0 }, // Number of interactions
-    sentimentAnalysis: String, // Optionally store sentiment analysis results here
+    sentimentAnalysis: String, 
+    questionCount: Number,
 });
 
 LolaSchema.plugin(AutoIncrement, { inc_field: 'lolaId' });

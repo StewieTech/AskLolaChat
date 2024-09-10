@@ -9,19 +9,34 @@
 - A User will need to pay using stripe
 - need to understand what the line below does better:
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+- Master account 
+- 
 
 #### Prototype
-- Profile Page that displays current signed in user's info
+- Profile Page that displays current signed in user's info (done)
 - Forgot Password, Password Reset, Email Verification
-- Logout (are you sure menu)
 - update the Pro button
+- Pro Popup Component
+- Session Information
+- Update Session information for Lola and add emailId to message Schema
+- QuestionCount should persist in MongoDB database
+- When User clicks Profile NavMenu should close; should do this for most menu options
 
 
 #### MVP
 - Add Stripe
+- Affiliate services
+- An Influencer Account gets free questions when 
+- Master Dev account
+- After each session, the user's conversation will be summarized by chatGpt and saved within the database. That will then also be used to promkpt Lola with as well
+  - user intents, main topics covered, and resolutions provided by the assistant.
+  - use name, interested in, and pass them to prompt in order to maintain conversation
+
+- Free accounts only see a Gif of Lola and are immediately prompted to signup
 
 #### MVP 2.0
 - Oauth Provider automatically filled in from their manual form and connected to their gmail so they can sign in with it in the future, or at least connect there accounts
+- Logout (are you sure menu)
 
 
 

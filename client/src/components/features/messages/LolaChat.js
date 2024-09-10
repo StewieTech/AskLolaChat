@@ -1,9 +1,10 @@
 // src/components/features/LolaChat.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import TextAreaComponent from './TextAreaComponent/TextAreaComponent';
 import ImageDisplayComponent from '../image/ImageDisplayComponent/ImageDisplayComponent';
 import QuestionCount from './QuestionCount';
+import { AuthContext } from '../../authentication/AuthContext'
 
 const MIN_TIMEOUT = 2500;
 const MAX_TIMEOUT = 5000;
@@ -20,6 +21,7 @@ const LolaChat = ({ backendAddress }) => {
 	const [showProPopup, setShowProPopup] = useState(false);
 	// const [isTextareaBlur, setIsTextareaBlur] = useState(false);
 	const [isTextareaFocused, setIsTextareaFocused] = useState(false);
+	const { authToken } = useContext(AuthContext) ;
 
 	useEffect(() => {
 		if (questionCount >= MAX_QUESTION_LIMIT_FREE) {
@@ -55,9 +57,9 @@ const LolaChat = ({ backendAddress }) => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		const token = localStorage.getItem('token');
+		// const token = localStorage.getItem('token');
 
-		if (!token) {
+		if (!authToken) {
 			console.error('No toekn found!! Please login!!.');
 			setResponse('Error: no token fond!!!. Login PLEASE!');
 			return ;
@@ -73,7 +75,7 @@ const LolaChat = ({ backendAddress }) => {
 			fetch(url, {
 				method: 'POST',
 				headers: {
-					'Authorization': `Bearer ${token}`,
+					'Authorization': `Bearer ${authToken}`,
 				},
 				body: formData,
 			})
@@ -105,7 +107,7 @@ const LolaChat = ({ backendAddress }) => {
 					method: 'POST',
 					headers: { 
 						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${token}`,
+						'Authorization': `Bearer ${authToken}`,
 					 },
 					body: JSON.stringify({ message }),
 				})

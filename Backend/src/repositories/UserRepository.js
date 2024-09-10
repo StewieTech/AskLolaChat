@@ -13,9 +13,9 @@ const findUserByEmail = async (emailId) => {
     return await User.findOne({ emailId});
 };
 
-const updateUserById = async (userId, updateData) => {
-    return await User.findOneAndUpdate({ userId }, updateData, { new: true }) ;
-};
+// const updateUserById = async (userId, updateData) => {
+//     return await User.findOneAndUpdate({ userId }, updateData, { new: true }) ;
+// };
 
 const deleteUserById = async (userId) => {
     return await User.findOneAndDelete({ userId });
@@ -25,4 +25,8 @@ const findUserById = async (userId) => {
     return await User.findById(userId);
 }
 
-module.exports = { createUser, findUserById, findUserByEmail, updateUserById, deleteUserById };
+const updateUserById = async (userId, updateData) => {
+    return await User.findByIdAndUpdate(userId, updateData, { new: true });
+};
+
+module.exports = { createUser, findUserById, findUserByEmail, updateUserById, deleteUserById, updateUserById };

@@ -1,15 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
 import { AuthContext } from '../../components/authentication/AuthContext'; // Import AuthContext for global state
+import  Badge  from '../../components/common/Badge/Badge';
 import './ProfileScreen.css';
 
 const ProfileScreen = () => {
   const { authToken, user } = useContext(AuthContext);
+  const [ showBadge, setShowBadge ] = useState(false);
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
     name: '',
     gender: '',
     birthday: '',
-    interest: '',
+    interest: `${user}`,
+    // interest2: `${authToken}`,
     email: '',
   });
   
@@ -40,6 +46,8 @@ const ProfileScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+        // console.log("AuthToken being sent:", authToken); // Log the authToken
+        console.log("Profile data being sent:", profileData); // Log the profileData
       const res = await fetch('http://localhost:3001/api/users/update-profile', {
         method: 'PUT',
         headers: {
@@ -51,6 +59,11 @@ const ProfileScreen = () => {
       const data = await res.json();
       if (data.success) {
         console.log('Profile updated successfully');
+        setShowBadge(true);
+        setTimeout(() => {
+            setShowBadge(false);
+            navigate('/LolaChat');
+        }, 2500 );
       } else {
         console.error('Failed to update profile');
       }
@@ -107,6 +120,18 @@ const ProfileScreen = () => {
           />
         </Form.Group>
 
+                {/* <Form.Group>
+          <Form.Label>Interest 2</Form.Label>
+          <Form.Control
+            type="text"
+            name="interest2"
+            value={profileData.interest2}
+            onChange={handleChange}
+          />
+        </Form.Group> */}
+
+
+
         <Form.Group>
           <Form.Label>Email (Read-only)</Form.Label>
           <Form.Control
@@ -116,6 +141,8 @@ const ProfileScreen = () => {
             readOnly
           />
         </Form.Group>
+
+        {showBadge && <Badge type ="success" message="Profile Updated Successfully!" />}
 
         <Button type="submit" variant="primary">
           Save Changes

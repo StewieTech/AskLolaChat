@@ -1,3 +1,4 @@
+// components/features/messages/QuestionCount.js
 import React from 'react';
 import { Badge, Button, Modal } from 'react-bootstrap';
 
@@ -36,42 +37,4 @@ export default QuestionCount;
 
 
 
-/*
-old code
 
-
-
-
-
-
-var remainingFreeQuestions = MAX_QUESTION_LIMIT_FREE - questionCount ;
-
-
-//   Pro Badge  
-//  <div className="text-center">
-//  {remainingFreeQuestions > 0 ? (
-    //    <Badge variant="secondary">Remaining Free Questions: {remainingFreeQuestions}</Badge>
-    //  ) : (
-        //    <Badge variant="danger">Upgrade to Pro for Unlimited Questions</Badge>
-        //  )}
-        // </div>
-
- <Modal show = {showProPopup} onHide={handleCloseProPopup}>
-        <Modal.Header closeButton>
-          <Modal.Title>Upgrade to Pro to talk more to Lola</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p> Upgrade now to get unlimited questions and more features!</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseProPopup}>
-            Close
-          </Button>
-          <Button variant = "primary" onClick={handleSignUpForPro}>
-            Upgrade to Pro
-          </Button>
-           Login to Google   in this line !!! 
-          </Modal.Footer>
-          </Modal>
-        
-*/

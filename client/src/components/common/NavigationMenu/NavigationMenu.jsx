@@ -17,7 +17,7 @@ const NavigationMenu = ({ onClose }) => {
             handleLogout();
             setShowBadge(false);
             onClose();
-        }, 4000);
+        }, 2000);
     }
 
     const handleProfileClick = () => {
