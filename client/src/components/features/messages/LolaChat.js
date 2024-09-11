@@ -35,7 +35,7 @@ const LolaChat = ({ backendAddress }) => {
 	useEffect(() => {
 		const fetchQuestionCount = async () => {
 			try {
-				const res = await fetch(`${backendAddress}/api/lola/question-count`, {
+				const res = await fetch(`${backendAddress}api/lola/question-count`, {
 					headers: {
 						'Authroization': `Bearer ${authToken}`,
 					},
@@ -211,7 +211,8 @@ const LolaChat = ({ backendAddress }) => {
 
 			<QuestionCount
 				questionCount={questionCount}
-				maxQuestionLimit={MAX_QUESTION_LIMIT_FREE}
+				// maxQuestionLimit={MAX_QUESTION_LIMIT_FREE}
+				maxQuestionLimit={maxQuestionLimit}
 				onUpgradeClick={() => setShowProPopup(false)}
 			/>
 		</>
