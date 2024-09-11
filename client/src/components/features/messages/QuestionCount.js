@@ -3,8 +3,8 @@ import React from 'react';
 import { Badge, Button, Modal } from 'react-bootstrap';
 
 const QuestionCount = ({ questionCount, maxQuestionLimit, onUpgradeClick }) => {
-//   const remainingFreeQuestions = maxQuestionLimit - questionCount;
-const remainingFreeQuestions = questionCount ; 
+  const remainingFreeQuestions = maxQuestionLimit - questionCount;
+// const remainingFreeQuestions = questionCount ; 
 //   let showProPopup = questionCount > maxQuestionLimit;
 let showProPopup = remainingFreeQuestions <=0 ;
   

@@ -18,6 +18,7 @@ const LolaChat = ({ backendAddress }) => {
 	const [imageAttached, setImageAttached] = useState(false);
 	const [imagePreviewUrl, setImagePreviewUrl] = useState(' ');
 	const [questionCount, setQuestionCount] = useState(0);
+	const [maxQuestionLimit, setMaxQuestionLimit] = useState(0);
 	const [showProPopup, setShowProPopup] = useState(false);
 	// const [isTextareaBlur, setIsTextareaBlur] = useState(false);
 	const [isTextareaFocused, setIsTextareaFocused] = useState(false);
@@ -40,7 +41,8 @@ const LolaChat = ({ backendAddress }) => {
 					},
 				});
 				const data = await res.json();
-				setQuestionCount(data.questionCount);
+				setQuestionCount(data.sessionQuestionCountRemaining);
+				setMaxQuestionLimit(data.maxQuestionLimit);
 			} catch (error) {
 				console.error('Error fetching question count: ', error);
 			}
