@@ -1,4 +1,4 @@
-// src/components/features/LolaChat.js
+// src/components/features/messages/LolaChat.js
 import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col  } from 'react-bootstrap';
 import TextAreaComponent from './TextAreaComponent/TextAreaComponent';
