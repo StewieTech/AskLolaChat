@@ -1,6 +1,6 @@
 // src/components/features/LolaChat.js
 import React, { useState, useEffect, useContext } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col  } from 'react-bootstrap';
 import TextAreaComponent from './TextAreaComponent/TextAreaComponent';
 import ImageDisplayComponent from '../image/ImageDisplayComponent/ImageDisplayComponent';
 import QuestionCount from './QuestionCount';
@@ -23,13 +23,50 @@ const LolaChat = ({ backendAddress }) => {
 	const [isTextareaFocused, setIsTextareaFocused] = useState(false);
 	const { authToken } = useContext(AuthContext) ;
 
+	// useEffect(() => {
+	// 	if (questionCount >= MAX_QUESTION_LIMIT_FREE) {
+	// 		setShowProPopup(true);
+	// 	} else {
+	// 		setShowProPopup(false);
+	// 	}
+	// }, [questionCount]);
+
 	useEffect(() => {
-		if (questionCount >= MAX_QUESTION_LIMIT_FREE) {
-			setShowProPopup(true);
-		} else {
-			setShowProPopup(false);
+		const fetchQuestionCount = async () => {
+			try {
+				const res = await fetch(`${backendAddress}/api/lola/question-count`, {
+					headers: {
+						'Authroization': `Bearer ${authToken}`,
+					},
+				});
+				const data = await res.json();
+				setQuestionCount(data.questionCount);
+			} catch (error) {
+				console.error('Error fetching question count: ', error);
+			}
+		};
+		fetchQuestionCount();
+	}, [authToken, backendAddress]);
+
+	const handleQuestionSubmit = async (message) => {
+		try {
+			const res = await fetch(`${backendAddress}/api/lola/message`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${authToken}`,
+				},
+				body: JSON.stringify({ message }),
+			});
+			const data = await res.json();
+
+			setQuestionCount(prevCount => prevCount - 1);
+		} catch (error) {
+			console.error('Error submitting question:', error);
 		}
-	}, [questionCount]);
+	};
+
+
 
 	const handleTextareaFocus = () => {
 		setIsTextareaFocused(true);
