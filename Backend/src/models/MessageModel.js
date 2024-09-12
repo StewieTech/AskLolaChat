@@ -14,6 +14,7 @@ const MessageSchema = new mongoose.Schema({
     lolaResponse: String, // The actual message text
     timestamp: { type: Date, default: Date.now }, // Time when the message was sent
     sentimentAnalysis: String, // Optionally store sentiment analysis results here
+    questionCount: { type: Number, default: 1},
 });
 
 MessageSchema.plugin(AutoIncrement, { inc_field: 'messageId' });

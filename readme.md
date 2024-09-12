@@ -10,17 +10,19 @@
 - need to understand what the line below does better:
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 - Master account 
-- 
+ 
 
 #### Prototype
 - Profile Page that displays current signed in user's info (done)
-- Forgot Password, Password Reset, Email Verification
+- Session Information
+- LolaId should not autoincrement
 - update the Pro button
 - Pro Popup Component
-- Session Information
 - Update Session information for Lola and add emailId to message Schema
 - QuestionCount should persist in MongoDB database
 - When User clicks Profile NavMenu should close; should do this for most menu options
+- Forgot Password, Password Reset, Email Verification
+- need to update localhost3001 to backendAddress (AuthContext)
 
 
 #### MVP
@@ -74,8 +76,6 @@ Header will be an X that turns into navigation menu
 - TextAreaComonent.js
 
 ##### Notifications
-
-
 
 
 ### Pages

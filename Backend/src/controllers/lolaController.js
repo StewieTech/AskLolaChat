@@ -31,6 +31,18 @@ const startLolaSession = async (req, res) => {
     }
 };
 
+const getQuestionCount = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const sessionData = await lolaService.getQuestionCount(userId);
+
+        res.status(200).json(sessionData);
+    } catch (error) {
+        console.error('Error fetching question count: ', error);
+        res.status(500).json({ success: false, message: 'Failed to fetch question count' });
+    }
+};
+
 /**
  * Updates Lola relationship level.
  * Handles the HTTP request to update the relationship level between Lola and the user.
@@ -81,6 +93,22 @@ const endLolaSession = async (req, res) => {
     }
 };
 
+const handleQuestionSubmit = async (req, res) => {
+    try {
+        const { message } = req.body;
+        const userId = req.user.id;
+
+        const updatedSession = await lolaService.handleQuestion(userId, message);
+
+        res.status(200).json({ success: true, updatedSession });
+    } catch (error) {
+        console.error('Error submitting question: ', error);
+        res.status(500).json({success: false, message: 'Failed to submit quetion'});
+    }
+};
+
+
+
 /**
  * Fetches a Lola session by ID.
  * Handles the HTTP request to fetch a Lola session by its ID.
@@ -104,4 +132,6 @@ module.exports = {
     updateRelationshipLevel,
     endLolaSession,
     getLolaSessionById,
+    handleQuestionSubmit,
+    getQuestionCount,
 };

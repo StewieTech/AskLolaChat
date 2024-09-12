@@ -41,7 +41,7 @@ const LoginScreen = () => {
         setTimeout(() => {
             navigate('/LolaChat');
             // resetForm(); // Reset form on success
-                }, 2500);
+                }, 2100);
       } else {
         setStatus({ error: 'Login failed' });
       }

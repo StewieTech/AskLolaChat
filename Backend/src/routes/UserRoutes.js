@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get('/profile', authenticateToken, userController.getUserProfile);
 
+router.post('/logout', authenticateToken, userController.logoutUser);
+
 router.put('/update-profile', authenticateToken, userController.updateUserProfile);
 
 // Route to register a new user

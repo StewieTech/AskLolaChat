@@ -56,12 +56,29 @@ export const AuthProvider = ({ children }) => {
 
   
 
-  const handleLogout = () => {
-    googleLogout();
-    setAuthToken(null);
-    setUser(null);
-    localStorage.removeItem('authToken');
-    navigate('/login'); // Redirect to login page
+  const handleLogout = async () => {
+    try {
+      const res = await fetch('http://localhost:3001/api/users/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization' : `Bearer ${authToken}`,
+        },
+      });
+
+      if (res.ok) {
+        
+        googleLogout();
+        setAuthToken(null);
+        setUser(null);
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        navigate('/login'); // Redirect to login page
+      } else {
+        console.error('Failed to log out on the server');
+      }
+    } catch (error) {
+      console.error('Error logging out: ', error);
+    }
   };
 
   return (

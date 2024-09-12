@@ -5,7 +5,8 @@ const {Configuration, OpenAIApi} = OpenAI;
 // const axios = require('axios');
 const secrets = require('../../../secrets')
 const messageRepository = require('../repositories/messageRepository'); // Importing the message repository
-const MessageModel = require ('../models/MessageModel');
+const LolaRepository = require('../repositories/LolaRepository')
+const UserRepository = require('../repositories/UserRepository');
 
 const contentAnswer = secrets.contentAnswer;
 
@@ -101,6 +102,48 @@ const getMessagesByUser = async (userId) => {
 const deleteMessage = async (messageId) => {
     return await messageRepository.deleteMessageById(messageId);
 };
+
+const handleUserMessage = async (userId, message) => {
+    try { 
+        const user = await UserRepository.findUserById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        let lolaSession = await LolaRepository.findLolaById({ userId }); // why use {} ? 
+        if (!lolaSession) {
+            let initialQuestionCount;
+            switch (user.subsciptionType) {
+                case 'Premium':
+                    initialQuestionCount = 10;
+                    break;
+                case 'Develop':
+                    initialQuestionCount = 99;
+                    break;
+                case 'Free':
+                    initialQuestionCount = 1;
+                    break;
+                default:
+                    initialQuestionCount = 1;
+                    break;
+            }
+            lolaSession = new LolaRepository.createLolaSession({ userId, questionCount: initialQuestionCount});
+        }
+
+        if (lolaSession.questionCount > 0) {
+            lolaSession.questionCount -= 1;
+        } else {
+            throw new Error('No more questions. Upgrade to continue.');
+        }
+
+        await lolaSession.save();
+
+        return lolaSession;
+    } catch (error) {
+        console.error('No UserMessage I guess: ', error);
+        throw new Error(error.message); // are both of these lines necessary ?
+    }
+}
 
 const createLolaTextResponse = async (inputText) => {
     const configuration = new Configuration({

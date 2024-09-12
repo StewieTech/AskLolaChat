@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const axios = require('axios'); // Importing axios for making HTTP requests
 const userService = require('../services/UserService'); // Importing the user service
+const lolaSerivce = require('../services/LolaService');
 const jwt = require('jsonwebtoken')
 
 const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external service URL from environment variables
@@ -19,6 +20,7 @@ const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external 
 const registerUser = async (req, res) => {
     try {
         const user = await userService.registerUser(req.body);
+        const lola = await lolaSerivce.createLolaId(user._id);
 
         // Notify an external service that a new user has been registered (e.g., sending a welcome email)
         // await axios.post(`${EXTERNAL_SERVICE_URL}/api/user-registered`, {
@@ -27,7 +29,7 @@ const registerUser = async (req, res) => {
         //     name: user.name,
         // });
 
-        res.status(201).json({ success: true, message: 'User registered successfully', user });
+        res.status(201).json({ success: true, message: 'User registered successfully', user, lola});
     } catch (error) {
         console.error('Error registering user:', error);
         res.status(400).json({ error: error.message });
@@ -45,7 +47,10 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     // console.log("process env JWT SECRET in Login", process.env.JWT_SECRET);
     try {
-        const user = await userService.authenticateUser(req.body.emailId, req.body.password);
+        // const user = await userService.authenticateUser(req.body.emailId, req.body.password);
+        const { user  } = await userService.authenticateUser(req.body.emailId, req.body.password);
+        const lolaSession = await lolaSerivce.createLolaSession(user._id, new Date());
+
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 
@@ -53,13 +58,33 @@ const loginUser = async (req, res) => {
         // Example: Fetch user-related data from an external API after successful login
         // const externalData = await axios.get(`${EXTERNAL_SERVICE_URL}/api/user-data/${user.userId}`);
         
-        res.status(200).json({ success: true, token, message: 'Login successful', user });
+        res.status(200).json({ success: true, token, user, lolaSession, message: 'Login successful', user });
         // res.status(200).json({ success: true, message: 'Login successful', user, externalData: externalData.data });
     } catch (error) {
         console.error('Error logging in user:', error);
         res.status(400).json({ error: error.message });
     }
 };
+
+const logoutUser = async (req, res) => {
+    try {
+        if (!req.user || !req.user.id) {
+            throw new Error('User not authenticated');
+        }
+
+        // res.status(100).json({ message: `${req.user}`});
+        await lolaSerivce.endLolaSession(req.user.id);
+
+        console.log('req.user in UserController: ', req.user);
+        const result = await userService.logoutUser(req.user.id);
+
+        res.status(200).json({ success: true, message: 'Logout successful'});
+    } catch (error) {
+        console.error(`Error during logout: ${error.message}`);
+        console.log('req.user in UserController: ', req.user.id);
+        res.status(400).json({ error: error.message });
+    }
+} ;
 
 /**
  * Updates user details.
@@ -156,4 +181,5 @@ module.exports = {
     deleteUserAccount,
     getUserProfile,
     updateUserProfile,
+    logoutUser,
 };

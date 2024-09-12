@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/UserRepository')
+const lolaSerivce = require('../services/LolaService');
 const bcrypt = require('bcrypt');
 
 
@@ -37,9 +38,23 @@ const authenticateUser = async (emailId, password) => {
         throw new Error('Invalid credentials');
     }
 
+    const lolaSession = await lolaSerivce.createLolaSession(user._id);
 
-    return user
+
+    return { user, lolaSession};
 };
+
+const logoutUser = async (userId) => {
+    const user = await userRepository.findUserById(userId);
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    await lolaSerivce.endLolaSession(userId);
+
+    return {success: true, message: 'User Logged out successfully'};
+}
 
 
 /**
@@ -85,4 +100,5 @@ module.exports = {
     deleteUserAccount,
     findUserById,
     updateUserProfile,
+    logoutUser,
 };

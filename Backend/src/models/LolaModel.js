@@ -11,7 +11,8 @@ const LolaSchema = new mongoose.Schema({
     sessionEnd: Date, // End time of the interaction session
     interactionCount: { type: Number, default: 0 }, // Number of interactions
     sentimentAnalysis: String, 
-    questionCount: Number,
+    sessionQuestionCountRemaining: {type: Number, default: 1},
+    maxQuestionLimit: { type: Number, default: 1},
 });
 
 LolaSchema.plugin(AutoIncrement, { inc_field: 'lolaId' });
