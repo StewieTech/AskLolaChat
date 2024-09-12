@@ -5,31 +5,41 @@ const Lola = require('../models/LolaModel');
 //     return await lolaSession.save();
 // }
 
-const createLolaSession = async (userId, sessionStart) => {
-    try {
-        return await Lola.findOneAndUpdate(
-            { userId },
-            { sessionStart, sessionQuestionCountRemaining: 3 },
-            { new: true }
-        );
-    } catch (error) {
-        throw new Error(`Error creating Lola session: ${error.message}`);
-    }
+// const createLolaSession = async (userId, sessionStart) => {
+//     try {
+//         return await Lola.findOneAndUpdate(
+//             { userId },
+//             { sessionStart, sessionQuestionCountRemaining: 3 },
+//             { new: true }
+//         );
+//     } catch (error) {
+//         throw new Error(`Error creating Lola session: ${error.message}`);
+//     }
+// };
+
+// const createLolaId = async (userId ) => {
+//     try {
+//         const newLola = new Lola({
+//             userId,
+//             interactionCount: 0,
+//             relationshipLevel: 1,
+//             maxQuestionLimit: 2,
+//             sessionQuestionCountRemaining: 2,
+//         });
+//         return await newLola.save();
+//     } catch (error) {
+//         throw new Error(`Error creating Lola record: ${error.message}`);
+//     }
+// };
+
+const createLola = async (lolaData) => {
+    const newLola = new Lola(lolaData);
+    return await newLola.save();
 };
 
-const createLolaId = async (userId ) => {
-    try {
-        const newLola = new Lola({
-            userId,
-            interactionCount: 0,
-            relationshipLevel: 1,
-            maxQuestionLimit: 2,
-            sessionQuestionCountRemaining: 2,
-        });
-        return await newLola.save();
-    } catch (error) {
-        throw new Error(`Error creating Lola record: ${error.message}`);
-    }
+const createLolaSession = async (sessionData) => {
+    const newSession = new Lola(sessionData);
+    return await newSession.save();
 };
 
 const decrementQuestionCount = async (lolaId) => {
@@ -111,7 +121,8 @@ module.exports = {
   updateSessionEnd,
   findActiveSessionByUserId,
   updateSessionWithQuestion,
-  createLolaId,
+//   createLolaId,
+createLola,
   decrementQuestionCount,
   getSessionDataByUserId,
 };

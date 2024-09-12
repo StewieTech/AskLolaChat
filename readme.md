@@ -16,6 +16,7 @@
 - Profile Page that displays current signed in user's info (done)
 - Session Information
 - LolaId should not autoincrement
+  - update LolaController
 - update the Pro button
 - Pro Popup Component
 - Update Session information for Lola and add emailId to message Schema
