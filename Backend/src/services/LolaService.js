@@ -1,5 +1,6 @@
 
 const lolaRepository = require('../repositories/LolaRepository');
+const userRepository = require('../repositories/UserRepository');
 const messageRepository = require('../repositories/MessageRepository');
 
 /**
@@ -24,7 +25,8 @@ const messageRepository = require('../repositories/MessageRepository');
 
 const createLolaSession = async (userId, sessionStart) => {
     try {
-        const existingLola = await lolaRepository.findLolaById(userId);
+        const existingLola = await userRepository.findUserById(userId);
+        console.log("userId in createLolaSession: ", userId);
 
         if (!existingLola) {
             const newLola = {
@@ -36,9 +38,12 @@ const createLolaSession = async (userId, sessionStart) => {
             };
             return await lolaRepository.createLola(newLola);
         } else {
+            console.log("userId in createLolaSession error: ", userId);
+            console.log("this is existing" , existingLola.userId);
             const newSession = { 
-                userId: existingLola.userId,
+                userId: userId,
                 lolaId: existingLola.lolaId,
+                // lolaId:2,
                 sessionStart,
                 maxQuestionLimit: existingLola.maxQuestionLimit,
                 sessionQuestionCountRemaining: existingLola.sessionQuestionCountRemaining,
@@ -47,18 +52,18 @@ const createLolaSession = async (userId, sessionStart) => {
             return await lolaRepository.createLolaSession(newSession);
         }
     } catch (error) {
-        throw new Error(`Error creating Lola session: ${error.message}`);
+        throw new Error(`Error creating Lola session: ${error.message} and ${userId}`);
     }
 };
 
-const createLolaId = async (userId) => {
-    try {
-        const lola = await lolaRepository.createLolaId(userId);
-        return lola;
-    } catch (error) {
-        throw new Error(`Error fetching Lola Id: ${error.message}`);
-    }
-};
+// const createLolaId = async (userId) => {
+//     try {
+//         const lola = await lolaRepository.createLolaId(userId);
+//         return lola;
+//     } catch (error) {
+//         throw new Error(`Error fetching Lola Id: ${error.message}`);
+//     }
+// };
 
 // // could handle error of there being no userId
 // const endLolaSession = async (userId) => {
@@ -172,5 +177,4 @@ module.exports = {
     endLolaSession,
     handleQuestion,
     getQuestionCount,
-    createLolaId,
 };

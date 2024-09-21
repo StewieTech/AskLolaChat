@@ -17,6 +17,8 @@
 - Session Information
 - LolaId should not autoincrement
   - update LolaController
+  - need to implement the totalQuestionsAsked feature
+
 - update the Pro button
 - Pro Popup Component
 - Update Session information for Lola and add emailId to message Schema

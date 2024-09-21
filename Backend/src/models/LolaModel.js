@@ -18,6 +18,7 @@ const LolaSchema = new mongoose.Schema({
 });
 
 LolaSchema.plugin(AutoIncrement, { inc_field: 'sessionId' });
+// LolaSchema.plugin(AutoIncrement, { inc_field: 'lolaId' });
 LolaSchema.plugin(AutoIncrement, { inc_field: 'lolaId', start_seq: 1000 });
 
 

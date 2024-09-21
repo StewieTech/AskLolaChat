@@ -20,7 +20,7 @@ const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external 
 const registerUser = async (req, res) => {
     try {
         const user = await userService.registerUser(req.body);
-        const lola = await lolaSerivce.createLolaId(user._id);
+        const lola = await lolaSerivce.createLolaSession(user._id);
 
         // Notify an external service that a new user has been registered (e.g., sending a welcome email)
         // await axios.post(`${EXTERNAL_SERVICE_URL}/api/user-registered`, {
@@ -59,7 +59,7 @@ const loginUser = async (req, res) => {
         // const externalData = await axios.get(`${EXTERNAL_SERVICE_URL}/api/user-data/${user.userId}`);
         
         res.status(200).json({ success: true, token, user, lolaSession, message: 'Login successful', user });
-        // res.status(200).json({ success: true, message: 'Login successful', user, externalData: externalData.data });
+        // res.status(200).json({ success: true, token, user,  message: 'Login successful', user });
     } catch (error) {
         console.error('Error logging in user:', error);
         res.status(400).json({ error: error.message });

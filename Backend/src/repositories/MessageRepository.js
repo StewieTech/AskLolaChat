@@ -21,6 +21,17 @@ const getUserById = async (userId) => {
     }
 };
 
+const countQuestionsForSession = async (lolaId, sessionId) => {
+    const count = await Message.countDocuments({
+        lolaId,
+        sessionId,
+        messageType: 'toLola'
+    });
+
+    // return Number(count);
+    return count;
+};
+
 // const findMessageByLolaId = async (lolaId) => {
 //     return await Message.find({ lolaId });
 // };
@@ -38,4 +49,5 @@ module.exports = { createMessage,
       findMessagesByUserId,
        deleteMessagesById,
        getUserById,
+       countQuestionsForSession,
      };

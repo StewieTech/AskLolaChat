@@ -38,10 +38,11 @@ const authenticateUser = async (emailId, password) => {
         throw new Error('Invalid credentials');
     }
 
-    const lolaSession = await lolaSerivce.createLolaSession(user._id);
+    // const lolaSession = await lolaSerivce.createLolaSession(user._id);
 
 
-    return { user, lolaSession};
+    // return { user, lolaSession};
+    return { user};
 };
 
 const logoutUser = async (userId) => {

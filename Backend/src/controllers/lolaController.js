@@ -15,19 +15,20 @@ const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external 
  */
 const startLolaSession = async (req, res) => {
     try {
-        const lolaSession = await lolaService.startLolaSession(req.body);
+        const { userId } = req.user;
+        const lolaSession = await lolaService.createLolaSession(userId, new Date());
 
         // Notify an external service that a new session has started
-        await axios.post(`${EXTERNAL_SERVICE_URL}/api/session-started`, {
-            sessionId: lolaSession.lolaId,
-            userId: lolaSession.userId,
-            startTime: lolaSession.sessionStart,
-        });
+        // await axios.post(`${EXTERNAL_SERVICE_URL}/api/session-started`, {
+        //     sessionId: lolaSession.lolaId,
+        //     userId: lolaSession.userId,
+        //     startTime: lolaSession.sessionStart,
+        // });
 
-        res.status(201).json({ message: 'Lola session started successfully', lolaSession });
+        res.status(201).json({success: true,  message: 'Lola session started successfully', lolaSession });
     } catch (error) {
         console.error('Error starting Lola session:', error);
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -78,18 +79,19 @@ const updateRelationshipLevel = async (req, res) => {
  */
 const endLolaSession = async (req, res) => {
     try {
-        const lolaSession = await lolaService.endLolaSession(req.params.lolaId);
+        const { userId } = req.user ;
+        const lolaSession = await lolaService.endLolaSession(userId);
 
         // Notify an external system that the session has ended
-        await axios.post(`${EXTERNAL_SERVICE_URL}/api/session-ended`, {
-            sessionId: lolaSession.lolaId,
-            endTime: lolaSession.sessionEnd,
-        });
+        // await axios.post(`${EXTERNAL_SERVICE_URL}/api/session-ended`, {
+        //     sessionId: lolaSession.lolaId,
+        //     endTime: lolaSession.sessionEnd,
+        // });
 
-        res.status(200).json({ message: 'Lola session ended successfully', lolaSession });
+        res.status(200).json({success: true,  message: 'Lola session ended successfully', lolaSession });
     } catch (error) {
         console.error('Error ending Lola session:', error);
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 };
 

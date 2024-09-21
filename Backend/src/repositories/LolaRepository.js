@@ -73,7 +73,7 @@ const findActiveSessionByUserId = async (userId) => {
     try {
         return await Lola.findOne({ userId, sessionEnd: null});
     } catch (error) {
-        throw new Error(`Error finding atcive session: ${error.message}`);
+        throw new Error(`Error finding active session: ${error.message}`);
     }
 };
 
