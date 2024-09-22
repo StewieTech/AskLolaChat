@@ -25,7 +25,7 @@ const countQuestionsForSession = async (lolaId, sessionId) => {
     const count = await Message.countDocuments({
         lolaId,
         sessionId,
-        messageType: 'toLola'
+        // messageType: 'toLola'
     });
 
     // return Number(count);

@@ -21,8 +21,8 @@ const deleteUserById = async (userId) => {
     return await User.findOneAndDelete({ userId });
 };
 
-const findUserById = async (userId) => {
-    return await User.findById(userId);
+const findUserById = async (id) => {
+    return await User.findById(id);
 }
 
 const updateUserById = async (userId, updateData) => {

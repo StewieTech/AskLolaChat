@@ -18,6 +18,10 @@
 - LolaId should not autoincrement
   - update LolaController
   - need to implement the totalQuestionsAsked feature
+  - when userId should be the same number that comes from the userModel -> LolaModel
+  - each session should increment by one if it's that user logs in
+  - they should have a logout session as well I believe. the endSession 
+  - alot of the issues I have is from searching by ObjectId instead of the numerical id
 
 - update the Pro button
 - Pro Popup Component

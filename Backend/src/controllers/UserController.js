@@ -73,6 +73,7 @@ const logoutUser = async (req, res) => {
         }
 
         // res.status(100).json({ message: `${req.user}`});
+        // console.log("req.user.id", req.user.id);
         await lolaSerivce.endLolaSession(req.user.id);
 
         console.log('req.user in UserController: ', req.user);

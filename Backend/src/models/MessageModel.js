@@ -4,7 +4,9 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const MessageSchema = new mongoose.Schema({
     messageId: { type: Number, unique: true }, // Auto-incremented primary key
-    lolaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lola' }, // Link to Lola model
+    // lolaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lola' }, // Link to Lola model
+    lolaId: {type: Number, ref: 'Lola', required: true},
+    sessionId: {type: Number, ref: 'Lola', required: true},
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Link to User model
     // emailId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Link to User model
     emailId: { type: String, required: true}, // Link to User model

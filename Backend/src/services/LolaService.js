@@ -41,7 +41,7 @@ const createLolaSession = async (userId, sessionStart) => {
             console.log("userId in createLolaSession error: ", userId);
             console.log("this is existing" , existingLola.userId);
             const newSession = { 
-                userId: userId,
+                userId: existingLola.userId,
                 lolaId: existingLola.lolaId,
                 // lolaId:2,
                 sessionStart,
@@ -79,8 +79,10 @@ const createLolaSession = async (userId, sessionStart) => {
 //     }
 //     };
 
-const endLolaSession = async (userId) => {
+const endLolaSession = async (id) => {
     try {
+        const existingLola = await userRepository.findUserById(id)
+        const { userId } = existingLola;
         const activeSession = await lolaRepository.findActiveSessionByUserId(userId);
 
         if (!activeSession) {
@@ -89,7 +91,7 @@ const endLolaSession = async (userId) => {
 
         const totalQuestionsAsked = await messageRepository.countQuestionsForSession(activeSession.lolaId, activeSession.sessionId); // haven;t implemented yet
     
-        activeSession.sessionQuestionCountRemaining -= totalQuestionAsked ;
+        activeSession.sessionQuestionCountRemaining -= totalQuestionsAsked ;
         activeSession.sessionEnd = new Date();
         
         return await lolaRepository.updateSessionEnd(userId, activeSession);
