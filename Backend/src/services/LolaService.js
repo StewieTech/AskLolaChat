@@ -23,12 +23,13 @@ const messageRepository = require('../repositories/MessageRepository');
 //     }
 // };
 
-const createLolaSession = async (userId, sessionStart) => {
+const createLolaSession = async (userId,  sessionStart) => {
     try {
         const existingLola = await userRepository.findUserById(userId);
-        console.log("userId in createLolaSession: ", userId);
+        // const { userId } = existingLola ;
+        // console.log("userId in createLolaSession: ", userId);
 
-        if (!existingLola) {
+        if (!userId) {
             const newLola = {
                 userId,
                 sessionStart,
@@ -43,7 +44,6 @@ const createLolaSession = async (userId, sessionStart) => {
             const newSession = { 
                 userId: existingLola.userId,
                 lolaId: existingLola.lolaId,
-                // lolaId:2,
                 sessionStart,
                 maxQuestionLimit: existingLola.maxQuestionLimit,
                 sessionQuestionCountRemaining: existingLola.sessionQuestionCountRemaining,

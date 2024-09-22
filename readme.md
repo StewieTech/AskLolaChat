@@ -43,6 +43,10 @@
 
 - Free accounts only see a Gif of Lola and are immediately prompted to signup
 
+ #### ErrorTesting
+ - User Register says fails but actually registers in the database
+- need to pass errors like user with this email already exists to badge
+
 #### MVP 2.0
 - Oauth Provider automatically filled in from their manual form and connected to their gmail so they can sign in with it in the future, or at least connect there accounts
 - Logout (are you sure menu)

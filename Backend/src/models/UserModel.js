@@ -6,7 +6,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const UserSchema = new mongoose.Schema({
     userId: { type: Number, unique: true }, // This will be auto-incremented
     emailId: { type: String, required: true, unique: true }, // User email
-    lolaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lola' }, // Link to Lola model    
+    lolaId: { type: Number, ref: 'Lola' }, // Link to Lola model    
     gender: { 
         type: String, 
         enum: ['Male', 'Female', 'Other'], 
