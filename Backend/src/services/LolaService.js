@@ -94,7 +94,7 @@ const endLolaSession = async (id) => {
         activeSession.sessionQuestionCountRemaining -= totalQuestionsAsked ;
         activeSession.sessionEnd = new Date();
         
-        return await lolaRepository.updateSessionEnd(userId, activeSession);
+        return await lolaRepository.updateSessionEnd(activeSession);
     } catch (error) {
         throw new Error(`Error ending Lola session: ${error.message}`);
     }

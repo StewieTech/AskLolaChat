@@ -57,13 +57,15 @@ const decrementQuestionCount = async (lolaId) => {
 
 
 
-const updateSessionEnd = async (userId, sessionEnd) => {
+const updateSessionEnd = async (sessionData) => {
     try {
+        const { lolaId, sessionId } = sessionData;
         return await Lola.findOneAndUpdate(
-            { userId, session: null },
-            { sessionEnd },
-            { new: true }
-        );
+            { lolaId, sessionId, session: null },
+            { sessionEnd: sessionData.sessionEnd },
+            { new: true },
+            console.log("User has been logged out successfully :)")
+        )
     } catch (error) {
         throw new Error(`Error updating Lola session ends: ${error.message}`)
     }
