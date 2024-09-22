@@ -14,14 +14,15 @@
 
 #### Prototype
 - Profile Page that displays current signed in user's info (done)
+  - when userId should be the same number that comes from the userModel -> LolaModel (done)
+  - each session should increment by one if it's that user logs in (done)
+  - they should have a logout session as well I believe. the endSession (done)
+  - alot of the issues I have is from searching by ObjectId instead of the numerical id (done)
+- LolaId should not autoincrement (done)
+
 - Session Information
-- LolaId should not autoincrement
   - update LolaController
   - need to implement the totalQuestionsAsked feature
-  - when userId should be the same number that comes from the userModel -> LolaModel
-  - each session should increment by one if it's that user logs in
-  - they should have a logout session as well I believe. the endSession 
-  - alot of the issues I have is from searching by ObjectId instead of the numerical id
 
 - update the Pro button
 - Pro Popup Component

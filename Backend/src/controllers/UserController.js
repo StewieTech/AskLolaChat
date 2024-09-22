@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const axios = require('axios'); // Importing axios for making HTTP requests
 const userService = require('../services/UserService'); // Importing the user service
-const lolaSerivce = require('../services/LolaService');
+const lolaService = require('../services/LolaService');
 const jwt = require('jsonwebtoken')
 
 const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external service URL from environment variables
@@ -20,7 +20,7 @@ const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external 
 const registerUser = async (req, res) => {
     try {
         const user = await userService.registerUser(req.body);
-        const lola = await lolaSerivce.createLolaSession(user._id);
+        const lola = await lolaService.createLolaSession(user._id);
 
         // Notify an external service that a new user has been registered (e.g., sending a welcome email)
         // await axios.post(`${EXTERNAL_SERVICE_URL}/api/user-registered`, {
@@ -48,10 +48,26 @@ const loginUser = async (req, res) => {
     // console.log("process env JWT SECRET in Login", process.env.JWT_SECRET);
     try {
         // const user = await userService.authenticateUser(req.body.emailId, req.body.password);
-        const { user  } = await userService.authenticateUser(req.body.emailId, req.body.password);
-        const lolaSession = await lolaSerivce.createLolaSession(user._id, new Date());
+        const  { user }   = await userService.authenticateUser(req.body.emailId, req.body.password);
+        if (!user) {
+            throw new Error('Authentication failed');
+        };
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    
+
+    console.log('User object:', user);
+    console.log('user._id:', user._id);
+    console.log('user.userId:', user.userId);
+
+    // Use the appropriate user ID
+    // const userId = user._id ? user._id.toString() : user.userId;
+    // if (!userId) {
+    //     throw new Error('User ID is missing');
+    // }
+
+        const lolaSession = await lolaService.createLolaSession(user._id, new Date());
+
+        const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 
 
@@ -74,7 +90,7 @@ const logoutUser = async (req, res) => {
 
         // res.status(100).json({ message: `${req.user}`});
         // console.log("req.user.id", req.user.id);
-        await lolaSerivce.endLolaSession(req.user.id);
+        await lolaService.endLolaSession(req.user.id);
 
         console.log('req.user in UserController: ', req.user);
         const result = await userService.logoutUser(req.user.id);

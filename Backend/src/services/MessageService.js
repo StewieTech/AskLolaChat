@@ -4,7 +4,7 @@ const OpenAI = require('openai');
 const {Configuration, OpenAIApi} = OpenAI;
 // const axios = require('axios');
 const secrets = require('../../../secrets')
-const messageRepository = require('../repositories/messageRepository'); // Importing the message repository
+const messageRepository = require('../repositories/MessageRepository'); // Importing the message repository
 const LolaRepository = require('../repositories/LolaRepository')
 const UserRepository = require('../repositories/UserRepository');
 
@@ -42,18 +42,28 @@ const sendMessageToLola = async (messageData) => {
 const receiveTextFromLola = async (message, userId) => {
   try {
     const user = await messageRepository.getUserById(userId);
+    // const user = await UserRepository.findUserById(id);
 
     if (!user) {
       throw new Error("User not found");
     }
 
+
+    const activeSession = await LolaRepository.findActiveSessionByUserId(userId);
+    if (!activeSession) {
+        throw new Error("Active Lola session not found");
+    };
+
     const lolaTextResponse = await createLolaTextResponse(message);
 
     const lolaMessageData = {
       userId: user.userId,
+      lolaId: activeSession.lolaId,
+      sessionId: activeSession.sessionId,
       emailId: user.emailId,
       question: message,
       lolaResponse: lolaTextResponse,
+      messageType: 'toLola',
     };
 
     await messageRepository.createMessage(lolaMessageData);

@@ -2,10 +2,11 @@
 
 const express = require('express');
 const lolaController = require('../controllers/lolaController');
+const authenticateToken = require('../auth/authMiddleware');
 
 const router = express.Router();
 
-router.get('/question-count', lolaController.getQuestionCount);
+router.get('/question-count', authenticateToken, lolaController.getQuestionCount);
 
 // Route to start a new Lola session
 router.post('/start', lolaController.startLolaSession);

@@ -16,6 +16,7 @@ const EXTERNAL_SERVICE_URL = process.env.EXTERNAL_SERVICE_URL; // Load external 
 const startLolaSession = async (req, res) => {
     try {
         const { userId } = req.user;
+        console.log("userId in startLolaSession controller:", userId);
         const lolaSession = await lolaService.createLolaSession(userId, new Date());
 
         // Notify an external service that a new session has started
@@ -34,12 +35,14 @@ const startLolaSession = async (req, res) => {
 
 const getQuestionCount = async (req, res) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user._id;
+        console.log("req.user.id in getQuestionCount lolacontroller: ", req.user._id);
+        console.log("req.user", req.user);
         const sessionData = await lolaService.getQuestionCount(userId);
 
         res.status(200).json(sessionData);
     } catch (error) {
-        console.error('Error fetching question count: ', error);
+        console.error('Error fetching question count: ',  error);
         res.status(500).json({ success: false, message: 'Failed to fetch question count' });
     }
 };

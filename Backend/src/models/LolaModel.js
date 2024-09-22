@@ -5,7 +5,8 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const LolaSchema = new mongoose.Schema({
     sessionId: { type: Number  }, // Auto-incremented session primary key
     // userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the User model
-    userId: { type: Number, ref: 'User' },
+    // userId: { type: Number, ref: 'User' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     lolaId: { type: Number  },
     messagesFromLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages from Lola
     messagesToLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages to Lola

@@ -25,11 +25,11 @@ const messageRepository = require('../repositories/MessageRepository');
 
 const createLolaSession = async (userId,  sessionStart) => {
     try {
-        const existingLola = await userRepository.findUserById(userId);
+        let existingLola = await userRepository.findUserById(userId);
         // const { userId } = existingLola ;
         // console.log("userId in createLolaSession: ", userId);
 
-        if (!userId) {
+        if (!existingLola) {
             const newLola = {
                 userId,
                 sessionStart,
@@ -37,10 +37,12 @@ const createLolaSession = async (userId,  sessionStart) => {
                 sessionQuestionCountRemaining: 3,
                 relationshipLevel: 1,
             };
-            return await lolaRepository.createLola(newLola);
+
+            existingLola = await lolaRepository.createLola(newLola);
+            return existingLola;
         } else {
             console.log("userId in createLolaSession error: ", userId);
-            console.log("this is existing" , existingLola.userId);
+            console.log("this is existingLola.userId createLolaSession function" , existingLola.userId);
             const newSession = { 
                 userId: existingLola.userId,
                 lolaId: existingLola.lolaId,
@@ -56,40 +58,21 @@ const createLolaSession = async (userId,  sessionStart) => {
     }
 };
 
-// const createLolaId = async (userId) => {
-//     try {
-//         const lola = await lolaRepository.createLolaId(userId);
-//         return lola;
-//     } catch (error) {
-//         throw new Error(`Error fetching Lola Id: ${error.message}`);
-//     }
-// };
 
-// // could handle error of there being no userId
-// const endLolaSession = async (userId) => {
-//     try {
-//         if (!userId) {
-//             throw new Error('userId is not defined');
-//         }
-//         const sessionEnd = new Date();
-//         return await lolaRepository.updateSessionEnd(userId, sessionEnd);
-//     } catch (error) {
-//         console.log('userId in LolaService: ', userId)
-//         throw new Error(`Error updating Lola session endss: ${error.message}`);
-//     }
-//     };
-
-const endLolaSession = async (id) => {
+const endLolaSession = async (userId) => {
     try {
-        const existingLola = await userRepository.findUserById(id)
-        const { userId } = existingLola;
+        // const existingLola = await userRepository.findUserById(id)
+        // const { userId } = existingLola;
         const activeSession = await lolaRepository.findActiveSessionByUserId(userId);
 
         if (!activeSession) {
             throw new Error('No active session found for user');
         }
 
-        const totalQuestionsAsked = await messageRepository.countQuestionsForSession(activeSession.lolaId, activeSession.sessionId); // haven;t implemented yet
+        const totalQuestionsAsked = await messageRepository.countQuestionsForSession(
+            activeSession.lolaId,
+             activeSession.sessionId
+            ); // haven;t implemented yet
     
         activeSession.sessionQuestionCountRemaining -= totalQuestionsAsked ;
         activeSession.sessionEnd = new Date();
@@ -118,7 +101,11 @@ const handleQuestion = async (userId, message) => {
 
 const getQuestionCount = async (userId) => {
     try {
+        // const { userId } = await userRepository.findUserById(id);
         const sessionData = await lolaRepository.getSessionDataByUserId(userId);
+        if (!sessionData) {
+            throw new Error("sessionData was not found for user");
+        }
         return {
             sessionQuestionCountRemaining: sessionData.sessionQuestionCountRemaining,
             maxQuestionLimit: sessionData.maxQuestionLimit,

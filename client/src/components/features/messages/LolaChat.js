@@ -37,12 +37,14 @@ const LolaChat = ({ backendAddress }) => {
 			try {
 				const res = await fetch(`${backendAddress}api/lola/question-count`, {
 					headers: {
-						'Authroization': `Bearer ${authToken}`,
+						'Authorization': `Bearer ${authToken}`,
 					},
 				});
 				const data = await res.json();
+				console.log("data: ", data);
 				setQuestionCount(data.sessionQuestionCountRemaining);
 				setMaxQuestionLimit(data.maxQuestionLimit);
+				console.log("The question Count and Max Question count are: ", questionCount, maxQuestionLimit)
 			} catch (error) {
 				console.error('Error fetching question count: ', error);
 			}
