@@ -44,7 +44,7 @@ const createLolaSession = async (userId,  sessionStart) => {
             console.log("userId in createLolaSession error: ", userId);
             console.log("this is existingLola.userId createLolaSession function" , existingLola.userId);
             const newSession = { 
-                userId: existingLola.userId,
+                userId,
                 lolaId: existingLola.lolaId,
                 sessionStart,
                 maxQuestionLimit: existingLola.maxQuestionLimit,

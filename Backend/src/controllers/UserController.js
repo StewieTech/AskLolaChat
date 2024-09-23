@@ -52,9 +52,6 @@ const loginUser = async (req, res) => {
         if (!user) {
             throw new Error('Authentication failed');
         };
-
-    
-
     console.log('User object:', user);
     console.log('user._id:', user._id);
     console.log('user.userId:', user.userId);
@@ -67,9 +64,7 @@ const loginUser = async (req, res) => {
 
         const lolaSession = await lolaService.createLolaSession(user._id, new Date());
 
-        const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         // Example: Fetch user-related data from an external API after successful login
         // const externalData = await axios.get(`${EXTERNAL_SERVICE_URL}/api/user-data/${user.userId}`);
