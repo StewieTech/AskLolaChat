@@ -12,7 +12,7 @@ const LolaSchema = new mongoose.Schema({
     messagesToLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages to Lola
     relationshipLevel: Number, // A numeric value representing the relationship depth
     sessionStart: { type: Date, default: Date.now }, // Start time of the interaction session
-    sessionEnd: Date, // End time of the interaction session
+    sessionEnd: { type: Date, default: null}, // End time of the interaction session
     interactionCount: { type: Number, default: 0 }, // Number of interactions
     sentimentAnalysis: String, 
     sessionQuestionCountRemaining: {type: Number, default: 2},

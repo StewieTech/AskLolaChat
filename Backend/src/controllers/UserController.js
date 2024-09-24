@@ -79,16 +79,16 @@ const loginUser = async (req, res) => {
 
 const logoutUser = async (req, res) => {
     try {
-        if (!req.user || !req.user.id) {
+        if (!req.user || !req.user._id) {
             throw new Error('User not authenticated');
         }
 
         // res.status(100).json({ message: `${req.user}`});
-        // console.log("req.user.id", req.user.id);
-        await lolaService.endLolaSession(req.user.id);
+        // console.log("req.user.id", req.user._id);
+        await lolaService.endLolaSession(req.user._id);
 
         console.log('req.user in UserController: ', req.user);
-        const result = await userService.logoutUser(req.user.id);
+        const result = await userService.logoutUser(req.user._id);
 
         res.status(200).json({ success: true, message: 'Logout successful'});
     } catch (error) {

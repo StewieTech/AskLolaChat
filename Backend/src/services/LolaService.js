@@ -66,7 +66,7 @@ const endLolaSession = async (userId) => {
         const activeSession = await lolaRepository.findActiveSessionByUserId(userId);
 
         if (!activeSession) {
-            throw new Error('No active session found for user');
+            throw new Error('No active session found for userr: ' +  userId);
         }
 
         const totalQuestionsAsked = await messageRepository.countQuestionsForSession(
@@ -75,7 +75,7 @@ const endLolaSession = async (userId) => {
             ); // haven;t implemented yet
     
         activeSession.sessionQuestionCountRemaining -= totalQuestionsAsked ;
-        activeSession.sessionEnd = new Date();
+        // activeSession.sessionEnd = new Date();
         
         return await lolaRepository.updateSessionEnd(activeSession);
     } catch (error) {
