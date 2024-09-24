@@ -61,23 +61,23 @@ const createLolaSession = async (userId,  sessionStart) => {
 
 const endLolaSession = async (userId) => {
     try {
-        // const existingLola = await userRepository.findUserById(id)
-        // const { userId } = existingLola;
         const activeSession = await lolaRepository.findActiveSessionByUserId(userId);
 
         if (!activeSession) {
-            throw new Error('No active session found for userr: ' +  userId);
+            throw new Error('No active session found for userr: ' + activeSession + userId);
         }
 
         const totalQuestionsAsked = await messageRepository.countQuestionsForSession(
             activeSession.lolaId,
              activeSession.sessionId
-            ); // haven;t implemented yet
+            ); 
     
-        activeSession.sessionQuestionCountRemaining -= totalQuestionsAsked ;
-        // activeSession.sessionEnd = new Date();
+            const updatedFields = {
+                sessionQuestionCountRemaining: activeSession.sessionQuestionCountRemaining - totalQuestionsAsked ,
+                sessionEnd: new Date(),
+            }
         
-        return await lolaRepository.updateSessionEnd(activeSession);
+        return await lolaRepository.updateSessionEnd(activeSession.lolaId, activeSession.sessionId, updatedFields);
     } catch (error) {
         throw new Error(`Error ending Lola session: ${error.message}`);
     }

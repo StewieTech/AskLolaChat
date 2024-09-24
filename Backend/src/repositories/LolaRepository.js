@@ -26,23 +26,34 @@ const decrementQuestionCount = async (lolaId) => {
 
 
 
-const updateSessionEnd = async (sessionData) => {
-    try {
-        const { lolaId, sessionId } = sessionData;
-        return await Lola.findOneAndUpdate(
-            { lolaId, sessionId, sessionEnd: null },
-            { sessionEnd: new Date() },
-            { new: true },
-            console.log("User has been logged out successfully :)")
-        )
-    } catch (error) {
-        throw new Error(`Error updating Lola session ends: ${error.message}`)
+const updateSessionEnd = async (lolaId, sessionId, updatedFields) => {
+  try {
+    // const { lolaId, sessionId } = sessionData;
+
+    const updatedSession = await Lola.findOneAndUpdate(
+      { lolaId, sessionId, sessionEnd: null },
+      updatedFields,
+      { new: true }
+    );
+
+    if (updatedSession) {
+      console.log("User has been logged out successfully :)");
+    } else {
+      throw new Error("No active session found to update");
     }
+    
+    return updatedSession;
+  } catch (error) {
+    throw new Error(`Error updating Lola session ends: ${error.message}`);
+  }
 };
 
 const findActiveSessionByUserId = async (userId) => {
     try {
-        return await Lola.findOne({ userId, sessionEnd: null});
+        const activeSession = await Lola.findOne({ userId , sessionEnd: null });
+        console.log("userID : " + userId);
+        console.log("activeSession in LolaRepo: "  + activeSession);
+        return activeSession; 
     } catch (error) {
         console.log("userId in activesession: ", userId);
         throw new Error(`Error finding active sessionn: ${error.message} and ${userId}`);
