@@ -30,8 +30,8 @@ const updateSessionEnd = async (sessionData) => {
     try {
         const { lolaId, sessionId } = sessionData;
         return await Lola.findOneAndUpdate(
-            { lolaId, sessionId, session: null },
-            { sessionEnd: sessionData.sessionEnd },
+            { lolaId, sessionId, sessionEnd: null },
+            { sessionEnd: new Date() },
             { new: true },
             console.log("User has been logged out successfully :)")
         )
@@ -49,16 +49,24 @@ const findActiveSessionByUserId = async (userId) => {
     }
 };
 
-const updateSessionWithQuestion = async (sessionId, message) => {
+const updateSessionWithQuestion = async (userId, message, lolaTextResponse) => {
     try {
-        return await Lola.findByIdAndUpdate(
-            sessionId,
+         const updatedSession = await Lola.findOneAndUpdate(
+            {  userId, sessionEnd: null },
+            // sessionId,
             {
-                $inc: {questionCount: 1},
-                $push: { messagesToLola:message }
+                $inc: {sessionQuestionCountRemaining: -1, interactionCount: +1},
+                $push: { messagesToLola:message , messagesFromLola: lolaTextResponse}
             },
             {new: true}
         );
+
+        if (!updatedSession) {
+            throw new Error ('No active session found for user!! ');
+        }
+
+        return updatedSession;
+
     } catch (error) {
         throw new Error(`Error updating session with question: ${error.message}`);
     }

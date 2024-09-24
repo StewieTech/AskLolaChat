@@ -7,6 +7,7 @@ const secrets = require('../../../secrets')
 const messageRepository = require('../repositories/MessageRepository'); // Importing the message repository
 const LolaRepository = require('../repositories/LolaRepository')
 const UserRepository = require('../repositories/UserRepository');
+const LolaService = require('../services/LolaService');
 
 const contentAnswer = secrets.contentAnswer;
 
@@ -55,9 +56,10 @@ const receiveTextFromLola = async (message, userId) => {
     };
 
     const lolaTextResponse = await createLolaTextResponse(message);
+    await LolaService.handleQuestion(userId, message, lolaTextResponse);
 
     const lolaMessageData = {
-      userId: user.userId,
+      userId: user._id,
       lolaId: activeSession.lolaId,
       sessionId: activeSession.sessionId,
       emailId: user.emailId,

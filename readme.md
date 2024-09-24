@@ -23,6 +23,7 @@
 - Session Information
   - update LolaController
   - need to implement the totalQuestionsAsked feature
+  - add sessionLength where session End - session Beginning
 
 - update the Pro button
 - Pro Popup Component

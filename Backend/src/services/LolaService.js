@@ -83,7 +83,7 @@ const endLolaSession = async (userId) => {
     }
 }
     
-const handleQuestion = async (userId, message) => {
+const handleQuestion = async (userId, message, lolaTextResponse) => {
     try {
         const activeSesison = await lolaRepository.findActiveSessionByUserId(userId);
 
@@ -91,7 +91,12 @@ const handleQuestion = async (userId, message) => {
             throw new Error('No active session found');
         }
 
-        const updateSession = await lolaRepository.updateSessionWithQuestion(activeSesison._id, message);
+        if (activeSesison.sessionQuestionCountRemaining <= 0) {
+            console.log("Question Limit has been reached!!");
+            // throw new Error("Question Limit has been reached for this session !!");
+        }
+
+        const updateSession = await lolaRepository.updateSessionWithQuestion(userId, message, lolaTextResponse);
 
         return updateSession;
     } catch (error) {

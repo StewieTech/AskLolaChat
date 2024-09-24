@@ -8,8 +8,10 @@ const LolaSchema = new mongoose.Schema({
     // userId: { type: Number, ref: 'User' },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     lolaId: { type: Number  },
-    messagesFromLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages from Lola
-    messagesToLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages to Lola
+    // messagesFromLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages from Lola
+    messagesFromLola: [{type: String, ref: 'Message'}], // Array of messages from Lola
+    messagesToLola: [{type: String, ref: 'Message'}], // Array of messages to Lola
+    // messagesToLola: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }], // Array of messages to Lola
     relationshipLevel: Number, // A numeric value representing the relationship depth
     sessionStart: { type: Date, default: Date.now }, // Start time of the interaction session
     sessionEnd: { type: Date, default: null}, // End time of the interaction session

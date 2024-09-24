@@ -21,7 +21,7 @@ const receiveTextFromLola = async (req, res) => {
         console.log('User Info:', req.user); // Log the entire req.user object
 
         const { message } = req.body;
-        const userId = req.user.id;
+        const userId = req.user._id;
         // const lolaId = req.session.lolaId || req.body.lolaId; // If using session or passing lolaId directly
 
         // const lolaTextResponse = await messageService.createLolaTextResponse(message);
