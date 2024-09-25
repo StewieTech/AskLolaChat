@@ -1,4 +1,5 @@
 const Lola = require('../models/LolaModel');
+const mongoose = require('mongoose');
 
 
 const createLola = async (lolaData) => {
@@ -29,10 +30,11 @@ const decrementQuestionCount = async (lolaId) => {
 const updateSessionEnd = async (lolaId, sessionId, updatedFields) => {
   try {
     // const { lolaId, sessionId } = sessionData;
+    updatedFields.isActive = false;
 
     const updatedSession = await Lola.findOneAndUpdate(
-      { lolaId, sessionId, sessionEnd: null },
-      updatedFields,
+      { lolaId, sessionId, isActive:true },
+      { $set: updatedFields},
       { new: true }
     );
 
@@ -49,15 +51,21 @@ const updateSessionEnd = async (lolaId, sessionId, updatedFields) => {
 };
 
 const findActiveSessionByUserId = async (userId) => {
+    let userObjectId;
     try {
-        const activeSession = await Lola.findOne({ userId , sessionEnd: null });
-        console.log("userID : " + userId);
-        console.log("activeSession in LolaRepo: "  + activeSession);
+        userObjectId = new mongoose.Types.ObjectId(userId);
+        const activeSession = await Lola.findOne({ userId: userObjectId, isActive: true });
+        // console.log("userID : " + userId);
+        // console.log("activeSession in LolaRepo: "  + activeSession);
         return activeSession; 
     } catch (error) {
-        console.log("userId in activesession: ", userId);
+        console.log("userId in activesession: ", userObjectId );
         throw new Error(`Error finding active sessionn: ${error.message} and ${userId}`);
+    } finally {
+        console.log("userId in activesession: ", userObjectId );
+        
     }
+    
 };
 
 const updateSessionWithQuestion = async (userId, message, lolaTextResponse) => {

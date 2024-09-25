@@ -30,9 +30,9 @@ const authenticateToken = async (req, res, next) => {
         
         const user = await User.findById(decoded.id);
         
-        console.log('User object:', user);
+        // console.log('User object:', user);
         const userId = user._id || user.id || user.userId;
-        console.log("User ID used in JWT:", userId);
+        // console.log("User ID used in JWT:", userId);
 
         if (!user) {
             return res.status(401).json({ message: 'User not found', decoded});

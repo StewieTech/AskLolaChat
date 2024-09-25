@@ -70,11 +70,14 @@ const endLolaSession = async (userId) => {
         const totalQuestionsAsked = await messageRepository.countQuestionsForSession(
             activeSession.lolaId,
              activeSession.sessionId
-            ); 
+            ) || 0; 
     
             const updatedFields = {
-                sessionQuestionCountRemaining: activeSession.sessionQuestionCountRemaining - totalQuestionsAsked ,
+                sessionQuestionCountRemaining: Math.max(
+                    0,
+                    activeSession.sessionQuestionCountRemaining - totalQuestionsAsked ),
                 sessionEnd: new Date(),
+                isActive: false,
             }
         
         return await lolaRepository.updateSessionEnd(activeSession.lolaId, activeSession.sessionId, updatedFields);
