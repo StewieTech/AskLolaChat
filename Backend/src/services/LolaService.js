@@ -25,34 +25,38 @@ const messageRepository = require('../repositories/MessageRepository');
 
 const createLolaSession = async (userId,  sessionStart) => {
     try {
-        let existingLola = await userRepository.findUserById(userId);
+        let latestSession = await lolaRepository.findLatestSessionByUserId(userId);
+        let sessionQuestionCountRemaining ;
+        let relationshipLevel ;
+        let lolaId;
         // const { userId } = existingLola ;
         // console.log("userId in createLolaSession: ", userId);
 
-        if (!existingLola) {
-            const newLola = {
-                userId,
-                sessionStart,
-                maxQuestionLimit: 3,
-                sessionQuestionCountRemaining: 3,
-                relationshipLevel: 1,
-            };
-
-            existingLola = await lolaRepository.createLola(newLola);
-            return existingLola;
+        if (latestSession) {
+            sessionQuestionCountRemaining = latestSession.sessionQuestionCountRemaining ;
+            relationshipLevel = latestSession.relationshipLevel;
+            lolaId = latestSession.lolaId ;
         } else {
+            sessionQuestionCountRemaining  = 3,
+            maxQuestionLimit = 3,
+            relationshipLevel = 1,
+            lolaId = await generateNewLolaId();
+            // latestSession = await lolaRepository.createLola(newLola);
+            latestSession = await lolaRepository.generateNewLolaId();
+        }    
+
+        const newSession = {
+            userId,
+            lolaId,
+            sessionStart,
+            maxQuestionLimit,
+            sessionQuestionCountRemaining,
+            relationshipLevel,
+            isActive: true,
+        };
             console.log("userId in createLolaSession error: ", userId);
-            console.log("this is existingLola.userId createLolaSession function" , existingLola.userId);
-            const newSession = { 
-                userId,
-                lolaId: existingLola.lolaId,
-                sessionStart,
-                maxQuestionLimit: existingLola.maxQuestionLimit,
-                sessionQuestionCountRemaining: existingLola.sessionQuestionCountRemaining,
-                relationshipLevel: existingLola.relationshipLevel,
-            }
+            console.log("this is existingLola.userId createLolaSession function" , latestSession.userId);
             return await lolaRepository.createLolaSession(newSession);
-        }
     } catch (error) {
         throw new Error(`Error creating Lola session: ${error.message} and ${userId}`);
     }

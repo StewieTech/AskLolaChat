@@ -7,6 +7,19 @@ const createLola = async (lolaData) => {
     return await newLola.save();
 };
 
+const generateNewLolaId = async () => {
+    try {
+        const lastLola = await Lola.findOne()
+        .sort({ lolaId: -1 })
+        .limit(1);
+
+        const newLolaId = lastLola ? lastLola.lolaId + 1 : 1 ;
+        return newLolaId;
+    } catch (error) {
+        throw new Error(`Error to generate new lolaId ${error.message}`);
+    }
+};
+
 const createLolaSession = async (sessionData) => {
     const newSession = new Lola(sessionData);
     return await newSession.save();
@@ -100,6 +113,16 @@ const getSessionDataByUserId = async (userId) => {
     }
 };
 
+const findLatestSessionByUserId = async (userId)  => {
+    try {
+        return await Lola.findOne({ userId })
+        .sort({ sessionStart: -1 })
+        .limit(1);
+    } catch (error) {
+        throw new Error(`Error finding latest session: $(error.message)`);
+    }
+};
+
 const findLolaById = async (lolaId) => {
     return await Lola.findOne({ lolaId });
 };
@@ -124,4 +147,6 @@ module.exports = {
 createLola,
   decrementQuestionCount,
   getSessionDataByUserId,
+  findLatestSessionByUserId,
+  generateNewLolaId,
 };
